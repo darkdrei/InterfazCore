@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pluguin>
+	<autor>	
+		<nombre></nombre>
+		<descripcion></descripcion>
+		<version></version>
+	</autor>
+	<cuerpo>
+		<tipo  columnas="" tipodatocolumna=""></tipo>
+		<claseprincipal></claseprincipal>
+		<parametro>
+			<String></String>
+			<float></float>
+			<int></int>
+		</parametro>
+	</cuerpo>
+</pluguin>

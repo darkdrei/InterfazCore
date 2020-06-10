@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pluguin>
+	<autor>	
+		<nombre></nombre>
+		<descripcion></descripcion>
+		<version></version>
+	<autor>
+	<cuerpo>
+		<tipo>
+			<numero columnas="" tipodatocolumna=""></numero>
+			<rendenrizar></rendenrizar>
+		</tipo>
+		<claseprincipal></claseprincipal>
+		<parametro></parametro>
+	</cuerpo>
+</pluguin>
