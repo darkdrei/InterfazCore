@@ -12,22 +12,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author dark
  */
-public class Xml implements Cloneable{
+public class Xml implements Cloneable {
+
     private Autor autor;
     private Cuerpo cuerpo;
-    private Ruta ruta;   
+    private Ruta ruta;
     private static final AtomicInteger count = new AtomicInteger(0);
     private final int id;
     private Status status;
-    
+
     public Xml(Autor autor, Cuerpo cuerpo, Ruta ruta, Status status) {
         this.autor = autor;
         this.cuerpo = cuerpo;
         this.ruta = ruta;
         this.id = count.incrementAndGet();
-        this.status =  status;
+        this.status = status;
     }
-    
+
     public Xml() {
         this.autor = new Autor();
         this.cuerpo = new Cuerpo();
@@ -47,7 +48,7 @@ public class Xml implements Cloneable{
     public int getId() {
         return id;
     }
-            
+
     public Autor getAutor() {
         return autor;
     }
@@ -71,23 +72,25 @@ public class Xml implements Cloneable{
     public void setRuta(Ruta ruta) {
         this.ruta = ruta;
     }
-    
-    public ArrayList<String> getParametros(){
+
+    public ArrayList<String> getParametros() {
         return this.getCuerpo().getParametros();
     }
-    public void addParametro(String parametro){
+
+    public void addParametro(String parametro) {
         this.getCuerpo().getParametros().add(parametro);
     }
 
     public void setStatus(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public class Ruta{
+
+    public class Ruta {
+
         private String nombre;
         private String direccion;
-        
-        public Ruta(String nombre, String ruta){
+
+        public Ruta(String nombre, String ruta) {
             this.nombre = nombre;
             this.direccion = ruta;
         }
@@ -117,10 +120,11 @@ public class Xml implements Cloneable{
         public String toString() {
             return "Ruta{" + "nombre=" + nombre + ", direccion=" + direccion + '}';
         }
-        
+
     }
-    
-    public class Autor{
+
+    public class Autor {
+
         private String nombre;
         private String descripcion;
         private String version;
@@ -154,22 +158,22 @@ public class Xml implements Cloneable{
             this.descripcion = descripcion;
             this.version = version;
         }
-        
+
         public Autor() {
             this.nombre = "";
             this.descripcion = "";
             this.version = "";
-        }        
+        }
 
         @Override
         public String toString() {
             return "Autor{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", version=" + version + '}';
-        }        
-        
+        }
 
     }
-    
-    public class Cuerpo{
+
+    public class Cuerpo {
+
         private String[] tipo_datos;
         private int columnas;
         private ArrayList<String> parametros;
@@ -181,7 +185,7 @@ public class Xml implements Cloneable{
             this.parametros = parametros;
             this.main = main;
         }
-        
+
         public Cuerpo() {
             this.tipo_datos = new String[10];
             this.columnas = 0;
@@ -224,18 +228,18 @@ public class Xml implements Cloneable{
         @Override
         public String toString() {
             return "Cuerpo{" + "tipo_datos=" + tipo_datos + ", columnas=" + columnas + ", parametros=" + parametros + '}';
-        } 
-        
+        }
+
     }
 
-    public class Status{
-        
+    public class Status {
+
         private boolean active;
-        
+
         public Status(boolean active) {
             this.active = active;
         }
-        
+
         public boolean getActive() {
             return active;
         }
@@ -243,43 +247,42 @@ public class Xml implements Cloneable{
         public void setActive(boolean active) {
             this.active = active;
         }
-        
+
         @Override
         public String toString() {
             return "Status{" + "active=" + active + '}';
         }
 
-     
     }
-    
-    public String toStringId(){
-        return "\n ------ Pluguin ---> "+this.getId();
+
+    public String toStringId() {
+        return "\n ------ Pluguin ---> " + this.getId();
     }
-    
+
     @Override
     public String toString() {
         String info = "";
-        info+="\n ------ Pluguin ---> "+this.getId();
-        info+="\n ------ Autor ------";
-        info+="\nNombre  : "+this.getAutor().getNombre();
-        info+="\nVersion : "+this.getAutor().getVersion();
-        info+="\nRuta : "+this.getAutor().getVersion();
-        info+="\nDescripcion : ";
-        info+="\n"+this.getAutor().getDescripcion();
-        info+="\n";
-        info+="\nClase principal : ";
-        info+="\n"+this.getCuerpo().getMain();
-        info+="\n";
-        info+="\nEstatus";
-        info+="\n"+this.getStatus().getActive();
-        info+="\n";
-        info+="\n*** Parametros : ";
-        for ( String s : this.getParametros()){
-            info+="\n\t"+s;
+        info += "\n ------ Pluguin ---> " + this.getId();
+        info += "\n ------ Autor ------";
+        info += "\nNombre  : " + this.getAutor().getNombre();
+        info += "\nVersion : " + this.getAutor().getVersion();
+        info += "\nRuta : " + this.getAutor().getVersion();
+        info += "\nDescripcion : ";
+        info += "\n" + this.getAutor().getDescripcion();
+        info += "\n";
+        info += "\nClase principal : ";
+        info += "\n" + this.getCuerpo().getMain();
+        info += "\n";
+        info += "\nEstatus";
+        info += "\n" + this.getStatus().getActive();
+        info += "\n";
+        info += "\n*** Parametros : ";
+        for (String s : this.getParametros()) {
+            info += "\n\t" + s;
         }
-        info+="\n*** Tipos de datos de muestra : ";
-        for ( String s : this.getCuerpo().getTipo_datos()){
-            info+="\n\t"+s;
+        info += "\n*** Tipos de datos de muestra : ";
+        for (String s : this.getCuerpo().getTipo_datos()) {
+            info += "\n\t" + s;
         }
         return info;
     }

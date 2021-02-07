@@ -27,9 +27,9 @@ import logica.OSValidator;
  *
  * @author exile
  */
-public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener{
-    
-    Object [][] data = null;
+public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener {
+
+    Object[][] data = null;
     String[] columNames = new String[3];
     LectorXml l = new LectorXml();
     ValidXml vxml = new ValidXml();
@@ -47,72 +47,70 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         listaDeComponentes();
         TextInformacion.setEditable(false);
     }
-    
-    private void listaDeComponentes(){
-        columNames = new String[] {"Activado", "Nombre", "Descripción", "Versión"};
+
+    private void listaDeComponentes() {
+        columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión"};
         if (os.getOS().equals("win")) {
             path = "src\\configuracion\\xml_configuracion.xml";
-        }else{
+        } else {
             path = "src/configuracion/xml_configuracion.xml";
         }
         boolean exisFile = vxml.exisFile(path);
         boolean validExtencion = vxml.validExtencion(path);
-        
+
         if (exisFile & validExtencion) {
             //WriteComponenXml componen = new WriteComponenXml();
             //componen.writeFile(path,l.getXml());
             list.loadingFile(path);
             list.readNodeFile();
             data = new Object[list.getXmls().size()][4];
-            
+
             for (Xml x : list.getXmls()) {
                 data[list.getXmls().indexOf(x)][0] = x.getStatus().getActive();
                 data[list.getXmls().indexOf(x)][1] = x.getAutor().getNombre();
                 data[list.getXmls().indexOf(x)][2] = x.getAutor().getDescripcion();
                 data[list.getXmls().indexOf(x)][3] = x.getAutor().getVersion();
-               
-                System.out.println("idXml "+ x.getId());
             }
 
-        }else{
+        } else {
             JDialog d = new JDialog();
             d.setTitle("El archivo de configuracion ha sido alterado");
             d.setVisible(true);
         }
-        TablaComponentes.setModel(new DefaultTableModel(data, columNames){
+        TablaComponentes.setModel(new DefaultTableModel(data, columNames) {
             @Override
-            public boolean isCellEditable(int row, int column){
-                if(column == 0){
+            public boolean isCellEditable(int row, int column) {
+                if (column == 0) {
                     return true;
                 }
-                return false;  
+                return false;
             }
+
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return getValueAt(0, columnIndex).getClass();
             }
         });
-        
+
         TablaComponentes.getModel().addTableModelListener(this);
     }
-    
+
     @Override
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
 
         TableModel model;
-        model = (TableModel)e.getSource();
+        model = (TableModel) e.getSource();
         Object response = model.getValueAt(row, column);
-        Xml x =  list.getXmls().get(row);
+        Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
         WriteComponenXml wXml = new WriteComponenXml();
         wXml.writeFile(path, x);
         JOptionPane.showMessageDialog(TablaComponentes, list.getXmls().get(row).getStatus());
 //        ...// Do something with the data...
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,19 +217,18 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     private void TablaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaComponentesMouseClicked
         // TODO add your handling code here:
         int selectedRow = TablaComponentes.getSelectedRow();
-        
-        String t = "Nombre: "+ list.getXmls().get(selectedRow).getAutor().getNombre() + "\n" 
+
+        String t = "Nombre: " + list.getXmls().get(selectedRow).getAutor().getNombre() + "\n"
                 + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
                 + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
                 + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
         TextInformacion.setText(t);
-      
+
     }//GEN-LAST:event_TablaComponentesMouseClicked
 
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaComponentes;
     private javax.swing.JTextArea TextInformacion;

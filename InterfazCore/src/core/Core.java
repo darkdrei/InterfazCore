@@ -13,7 +13,6 @@ import interfazcore.ListaComponentes;
 import interfazcore.ExecuteComponent;
 import interfazcore.EliminarComponente;
 import bibliothek.gui.DockController;
-import bibliothek.gui.dock.common.CContentArea;
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.DefaultSingleCDockable;
@@ -24,8 +23,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -37,11 +34,9 @@ import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 import logica.BasePanel;
 import logica.CargarArchivoArbol;
 import logica.CodePanel;
@@ -61,11 +56,11 @@ public class Core
     private DefaultSingleCDockable lectorSeleccionDockable;
     private CGrid layout;
     public CargarArchivoArbol cargador_de_archivo;
-     
+    public ListComponenXml list = new ListComponenXml();
+    public String path = "";
+    public OSValidator os;
     public CControl control;
-    
 
-        
     public static void main(String[] args)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
         DockController.disableCoreWarning();
@@ -96,8 +91,8 @@ public class Core
     public Core()
             throws InstantiationException, IllegalAccessException {
         setTitle("Interfaz - Integradora");
-        
-        this.control= new CControl(this);
+
+        this.control = new CControl(this);
         this.control.setTheme("eclipse");
         add(this.control.getContentArea());
         /*
@@ -110,7 +105,7 @@ public class Core
         menu.add(addComponente);
         JMenuItem deleteComponentes = new JMenuItem("Eliminar Componente");
         menu.add(deleteComponentes);
-        
+
         deleteComponentes.addActionListener(new ActionListener() {
             private int count = 0;
 
@@ -216,7 +211,7 @@ public class Core
             TreePath path = tree.getSelectionPath();
             System.err.println(path.toString());
             System.err.println(path.getPathComponent(path.getPath().length - 1).toString());
-            System.out.println("COnponente es .... " + path.getPathComponent(path.getPath().length - 1).toString());
+            System.out.println("Componente es .... " + path.getPathComponent(path.getPath().length - 1).toString());
             DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
             try {
                 if (cargador_de_archivo.validarExistencia(desc.getNombre())) {
@@ -227,18 +222,36 @@ public class Core
             }
         });
         this.layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
-        
-        /*   Ejecutador de codigo       */
-        ExecuteComponent executecomponene = new ExecuteComponent();
-        DefaultSingleCDockable executecomponene_dockable= new DefaultSingleCDockable("Execute", "Ejecucion", new CAction[0]);
-        executecomponene_dockable.setLayout(new BorderLayout());
-        executecomponene_dockable.add(executecomponene, BorderLayout.CENTER);
-        executecomponene_dockable.setCloseable(true);
-        //this.layout.add(30, 0, 70, 100, executecomponene_dockable);
-        this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
-        /********************************/        
+        if (os.getOS().equals("win")) {
+            path = "src\\configuracion\\xml_configuracion.xml";
+        } else {
+            path = "src/configuracion/xml_configuracion.xml";
+        }
+        ValidXml vxml = new ValidXml();
+        boolean exisFile = vxml.exisFile(path);
+        boolean validExtencion = vxml.validExtencion(path);
+        if (exisFile & validExtencion) {
+            list.loadingFile(path);
+            list.readNodeFile();
+            /*   Ejecutador de codigo       */
+            for (Xml x : list.getXmls()) {
+                if (x.getStatus().getActive()) {
+                    ExecuteComponent executecomponene = new ExecuteComponent(x);
+                    DefaultSingleCDockable executecomponene_dockable = new DefaultSingleCDockable(Integer.toString(x.getId()), x.getAutor().getNombre(), new CAction[0]);
+                    executecomponene_dockable.setLayout(new BorderLayout());
+                    executecomponene_dockable.add(executecomponene, BorderLayout.CENTER);
+                    executecomponene_dockable.setCloseable(true);
+                    //this.layout.add(30, 0, 70, 100, executecomponene_dockable);
+                    this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
+                }
+            }
+        }
+
+        /**
+         * *****************************
+         */
         control.getContentArea().deploy(this.layout);
-        /** 
+        /**
          * * CARGAR EN CODE **
          */
     }
@@ -252,7 +265,7 @@ public class Core
         layout.select(30, 0, 70, 100, lectorSeleccionDockable);
         control.getContentArea().deploy(layout);
     }
-    
+
     public void setTree(JTree tree) {
         this.tree = tree;
     }

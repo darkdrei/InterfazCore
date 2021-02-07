@@ -49,9 +49,9 @@ import logica.OSValidator;
  *
  * @author exile
  */
-public class EliminarComponente extends javax.swing.JDialog implements ActionListener, TableModelListener{
-    
-    Object [][] data = null;
+public class EliminarComponente extends javax.swing.JDialog implements ActionListener, TableModelListener {
+
+    Object[][] data = null;
     String[] columNames = new String[3];
     LectorXml l = new LectorXml();
     ValidXml vxml = new ValidXml();
@@ -70,12 +70,12 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
         listaDeComponentes();
         TextInformacion.setEditable(false);
     }
-    
-    private void listaDeComponentes(){
-        columNames = new String[] {"Activado", "Nombre", "Descripción", "Versión", ""};
+
+    private void listaDeComponentes() {
+        columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión", ""};
         if (os.getOS().equals("win")) {
             path = "src\\configuracion\\xml_configuracion.xml";
-        }else{
+        } else {
             path = "src/configuracion/xml_configuracion.xml";
         }
         boolean exisFile = vxml.exisFile(path);
@@ -97,42 +97,42 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
                 data[list.getXmls().indexOf(x)][4] = btn_eliminar;
             }
 
-        }else{
+        } else {
             JDialog d = new JDialog();
             d.setTitle("El archivo de configuracion ha sido alterado");
             d.setVisible(true);
         }
-        TablaComponentes.setModel(new DefaultTableModel(data, columNames){
+        TablaComponentes.setModel(new DefaultTableModel(data, columNames) {
             @Override
-            public boolean isCellEditable(int row, int column){
-                return false;  
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
+
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return getValueAt(0, columnIndex).getClass();
             }
         });
-        
+
         TablaComponentes.getModel().addTableModelListener(this);
         TablaComponentes.setRowHeight(20);
     }
-    
+
     @Override
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
         TableModel model;
-        model = (TableModel)e.getSource();
+        model = (TableModel) e.getSource();
         Object response = model.getValueAt(row, column);
-        Xml x =  list.getXmls().get(row);
+        Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
         WriteComponenXml wXml = new WriteComponenXml();
         wXml.writeFile(path, x);
         //JOptionPane.showMessageDialog(TablaComponentes, list.getXmls().get(row).getStatus());
 //        ...// Do something with the data...
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -236,49 +236,46 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     private void TablaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaComponentesMouseClicked
         // TODO add your handling code here:
         int selectedRow = TablaComponentes.getSelectedRow();
         int selectedColum = TablaComponentes.getSelectedColumn();
-        String t = "Nombre: "+ list.getXmls().get(selectedRow).getAutor().getNombre() + "\n" 
+        String t = "Nombre: " + list.getXmls().get(selectedRow).getAutor().getNombre() + "\n"
                 + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
                 + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
                 + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
         TextInformacion.setText(t);
-        
-        Object[] opciones = {"NO", "YES, PLEASE"};
-        
-        if(selectedColum == 4){
+
+        Object[] opciones = {"No", "Si"};
+
+        if (selectedColum == 4) {
             Object value = TablaComponentes.getValueAt(selectedRow, selectedColum);
-            if(value instanceof JButton){
-                ((JButton)value).doClick();
+            if (value instanceof JButton) {
+                ((JButton) value).doClick();
                 //int op_eliminar = JOptionPane.showConfirmDialog(this,"seguro que desea eliminar?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
                 int op_eliminar;
-                op_eliminar = JOptionPane.showOptionDialog(null, 
-                        "¿está seguro que desea eliminar el componente "+list.getXmls().get(selectedRow).getAutor().getNombre()+"?",
+                op_eliminar = JOptionPane.showOptionDialog(null,
+                        "¿está seguro que desea eliminar el componente " + list.getXmls().get(selectedRow).getAutor().getNombre() + "?",
                         "Eliminacion de componente",
                         JOptionPane.YES_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null, //do not use a custom Icon
                         opciones, //the titles of buttons
                         opciones[0]); //default button title
-                if (JOptionPane.OK_OPTION != op_eliminar){
+                if (JOptionPane.OK_OPTION != op_eliminar) {
                     list.removeXml(list.getXmls().get(selectedRow));
                     TextInformacion.setText("");
                     listaDeComponentes();
-                }else{
+                } else {
                     System.out.println("cncelado");
                 }
             }
-        }        
+        }
     }//GEN-LAST:event_TablaComponentesMouseClicked
 
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaComponentes;
     private javax.swing.JTextArea TextInformacion;
@@ -292,34 +289,33 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public class Render extends DefaultTableCellRenderer{
 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, 
-            boolean isSelected, boolean hasFocus, int row, int column) {
-        
-        if(value instanceof JButton){
-            JButton btn = (JButton)value;
-            if(isSelected){
-                btn.setForeground(table.getSelectionForeground());
-        
-      btn.setBackground(table.getSelectionBackground());
-            }else{
-                btn.setForeground(table.getForeground());
-      btn.setBackground(UIManager.getColor("Button.background"));
+    public class Render extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+
+            if (value instanceof JButton) {
+                JButton btn = (JButton) value;
+                if (isSelected) {
+                    btn.setForeground(table.getSelectionForeground());
+
+                    btn.setBackground(table.getSelectionBackground());
+                } else {
+                    btn.setForeground(table.getForeground());
+                    btn.setBackground(UIManager.getColor("Button.background"));
+                }
+                return btn;
             }
-            return btn;
+
+            if (value instanceof JCheckBox) {
+                JCheckBox ch = (JCheckBox) value;
+                return ch;
+            }
+
+            return super.getTableCellRendererComponent(table, value, isSelected,
+                    hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.
         }
-        
-        
-        if(value instanceof JCheckBox){
-            JCheckBox ch = (JCheckBox)value;
-            return ch;
-        }
-        
-        return super.getTableCellRendererComponent(table, value, isSelected, 
-                hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.
-    }   
-}
+    }
 }

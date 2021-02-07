@@ -6,6 +6,7 @@
 package interfazcore;
 
 import core.ExecuterComponent;
+import core.Xml;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,7 +23,18 @@ import logica.SettingDataType;
  */
 public class ExecuteComponent extends javax.swing.JPanel implements TableModelListener {
 
+    public Xml xml;
     private ArrayList<jpComponenteParametro> parametros;
+
+    public ExecuteComponent(Xml xml) {
+        this.xml = xml;
+        this.initComponents();
+        parametros = new ArrayList<>();
+        this.loadParameter();
+        Object[][] data = new Object[0][2];
+        String[] head = {"indice", "Nombre"};
+        this.updateTable(head, data);
+    }
 
     /**
      * Creates new form ExecuteComponent
@@ -30,10 +42,10 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
     public ExecuteComponent() {
         initComponents();
         parametros = new ArrayList<>();
-        loadParameter();
+        this.loadParameter();
         Object[][] data = new Object[0][2];
         String[] head = {"indice", "Nombre"};
-        updateTable(head, data);
+        this.updateTable(head, data);
     }
 
     /**
@@ -108,32 +120,32 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
         // TODO add your handling code here:
-        if(validarParametros()){
+        if (validarParametros()) {
             try {
                 String ruta = "/home/dark/NetBeansProjects/InterfazCore/src/configuracion/ModuloFuncional2.jar";
                 ArrayList<String> parametros = new ArrayList<>();
-                for(jpComponenteParametro component_parameter: this.parametros){
+                for (jpComponenteParametro component_parameter : this.parametros) {
                     parametros.add(component_parameter.getValue());
                 }
-                ExecuterComponent exec =new ExecuterComponent();
+                ExecuterComponent exec = new ExecuterComponent();
                 ExecuterComponent.ResponseExecuter response = exec.executeJar(ruta, parametros, 2);
-                if(response.isValido()){
+                if (response.isValido()) {
                     String[] head = {"indice", "Nombre"};
                     updateTable(head, response.getData());
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, response.getMensage(), "Ejecutar componente", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ExecuteComponent.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
+        }
     }//GEN-LAST:event_btnEjecutarActionPerformed
 
     public boolean validarParametros() {
         break_parameter:
         for (jpComponenteParametro parameter : this.getParametros()) {
             if (parameter.getValue() == "" || parameter.getValue() == null) {
-                JOptionPane.showMessageDialog(this, "El atributo "+parameter.getNameParameter() +" es requerido.", "Ejecutar componenete", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El atributo " + parameter.getNameParameter() + " es requerido.", "Ejecutar componenete", JOptionPane.INFORMATION_MESSAGE);
                 parameter.requestFocusInWindow();
                 return false;
             }
@@ -146,17 +158,25 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
     }
 
     public void loadParameter() {
-        jpComponenteParametro parametro = new jpComponenteParametro(0, SettingDataType.STRING, "Descripcion");
-        panelParametros.add(parametro);
-        jpComponenteParametro parametro1 = new jpComponenteParametro(1, SettingDataType.INTEGER, "Numero");
-        panelParametros.add(parametro1);
-        jpComponenteParametro parametro2 = new jpComponenteParametro(2, SettingDataType.FLOAT, "Real");
-        panelParametros.add(parametro2);
+        System.out.println("*####Loadparameter---------------------> " + this.xml.getParametros());
+        for (int i = 0; i < this.xml.getParametros().size(); i++) {
+            jpComponenteParametro parametro = new jpComponenteParametro(0, SettingDataType.STRING, this.xml.getParametros().get(i));
+            panelParametros.add(parametro);
+            this.getParametros().add(parametro);
+        }
         panelParametros.updateUI();
-        System.out.println("*----------------------------------> " + this.getParametros() );
-        this.getParametros().add(parametro);
-        this.getParametros().add(parametro1);
-        this.getParametros().add(parametro2);
+
+//        jpComponenteParametro parametro = new jpComponenteParametro(0, SettingDataType.STRING, "Descripcion");
+//        panelParametros.add(parametro);
+//        jpComponenteParametro parametro1 = new jpComponenteParametro(1, SettingDataType.INTEGER, "Numero");
+//        panelParametros.add(parametro1);
+//        jpComponenteParametro parametro2 = new jpComponenteParametro(2, SettingDataType.FLOAT, "Real");
+//        panelParametros.add(parametro2);
+//        panelParametros.updateUI();
+//        System.out.println("*----------------------------------> " + this.getParametros());
+//        this.getParametros().add(parametro);
+//        this.getParametros().add(parametro1);
+//        this.getParametros().add(parametro2);
     }
 
     public void updateTable(String[] head, Object[][] body) {
