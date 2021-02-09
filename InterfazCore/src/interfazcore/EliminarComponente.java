@@ -5,44 +5,25 @@
  */
 package interfazcore;
 
-import core.LectorXml;
-import core.ListComponenXml;
-import core.ValidXml;
-import core.WriteComponenXml;
-import core.Xml;
-import core.Xml.Status;
-import java.awt.Color;
+import logica.LectorXml;
+import logica.ListComponenXml;
+import logica.ValidXml;
+import logica.WriteComponenXml;
+import logica.Xml;
 import java.awt.Component;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-import javax.swing.text.TabableView;
-
-import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 import logica.OSValidator;
 
 /**

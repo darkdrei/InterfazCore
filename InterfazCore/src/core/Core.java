@@ -43,8 +43,11 @@ import logica.CodePanel;
 import logica.CopyCodeAction;
 import logica.DesArbol;
 import logica.LectorArchivo;
+import logica.ListComponenXml;
 import logica.ModelTree;
 import logica.OSValidator;
+import logica.ValidXml;
+import logica.Xml;
 
 public class Core
         extends JFrame {

@@ -6,7 +6,7 @@
 package interfazcore;
 
 import core.ExecuterComponent;
-import core.Xml;
+import logica.Xml;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -159,8 +159,8 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
 
     public void loadParameter() {
         System.out.println("*####Loadparameter---------------------> " + this.xml.getParametros());
-        for (int i = 0; i < this.xml.getParametros().size(); i++) {
-            jpComponenteParametro parametro = new jpComponenteParametro(0, SettingDataType.STRING, this.xml.getParametros().get(i));
+        for (Xml.Parametro p : this.xml.getParametros()) {
+            jpComponenteParametro parametro = new jpComponenteParametro(0, this.getDataType(p.getTipo()), p.getNombre());
             panelParametros.add(parametro);
             this.getParametros().add(parametro);
         }
@@ -177,6 +177,22 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
 //        this.getParametros().add(parametro);
 //        this.getParametros().add(parametro1);
 //        this.getParametros().add(parametro2);
+    }
+
+    public String getDataType(String type) {
+        switch (type) {
+            case "String": {
+                return SettingDataType.STRING;
+            }
+            case "int": {
+                return SettingDataType.INTEGER;
+            }
+            case "float": {
+                return SettingDataType.FLOAT;
+            }
+            default:
+                return SettingDataType.STRING;
+        }
     }
 
     public void updateTable(String[] head, Object[][] body) {

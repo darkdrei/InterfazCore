@@ -5,22 +5,19 @@
  */
 package interfazcore;
 
-import core.LectorXml;
-import core.ListComponenXml;
-import core.ValidXml;
-import core.WriteComponenXml;
-import core.Xml;
-import core.Xml.Status;
+import logica.LectorXml;
+import logica.ListComponenXml;
+import logica.ValidXml;
+import logica.WriteComponenXml;
+import logica.Xml;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.text.TabableView;
 import logica.OSValidator;
 
 /**

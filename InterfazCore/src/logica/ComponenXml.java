@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package logica;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import org.jdom2.input.SAXBuilder;
  *
  * @author dark
  */
-public class ComponenXml implements OperacionFIle, XmlInterface{
+public class ComponenXml implements OperacionFIle, XmlInterface {
 
     private SAXBuilder builder;
     private File file;
@@ -42,7 +42,6 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
         this.rootNode = null;
         xml = new Xml();
     }
-    
 
     @Override
     public File loadFile(String ruta) {
@@ -52,7 +51,7 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
     @Override
     public void loadingFile(String ruta) {
         this.setFile(loadFile(ruta));
-        if(this.file.exists()){
+        if (this.file.exists()) {
             try {
                 setDocument(this.getBuilder().build(this.file));
             } catch (JDOMException ex) {
@@ -147,12 +146,12 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
     public Xml getXmlById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public boolean xmlExist(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String toString() {
         return xml.toString();
@@ -167,11 +166,11 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
     public void updateFile(ArrayList<Xml> xmls) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void updateFile() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }  
+    }
 
     @Override
     public int getPositionXmlById(int id) {
