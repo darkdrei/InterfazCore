@@ -6,11 +6,6 @@
 package logica;
 
 import core.Core;
-import core.LectorXml;
-import core.ListComponenXml;
-import core.WriteComponenXml;
-import core.Xml;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -78,7 +73,7 @@ public class LectorArchivo extends JPanel implements ActionListener {
         //Label para q no se desborde
         // El titulo contenido de area
         JLabel desborde = new JLabel("              ");
-        //JScrollPane scrollPane = new JScrollPane(area); 
+        //JScrollPane scrollPane = new JScrollPane(area);
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 2;
@@ -226,8 +221,8 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             list.loadingFile(path_base);
                             list.readNodeFile();
                             xml.getRuta().setNombre(files[index_xml].getName());
-                            xml.getRuta().setDireccion(path_base+(os.getOS().equals("win")?"\\":"/")+files[index_jar].getName());
-                            System.out.println("----> "+xml.getRuta().toString());
+                            xml.getRuta().setDireccion(path_base + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
+                            System.out.println("----> " + xml.getRuta().toString());
                             break stop;
                         }
                     }

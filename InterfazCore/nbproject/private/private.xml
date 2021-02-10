@@ -3,17 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/jpComponenteParametro.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/TemplateRegex.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/SettingDataType.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/data/pactica.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/Core.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/EliminarComponente.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/ExecuteComponent.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/configuracion/xml_configuracion.xml</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/LectorArchivo.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/CopyCodeAction.java</file>
-            <file>file:/home/dark/NetBeansProjects/InterfazCore/src/logica/Test.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/configuracion/xml_configuracion.xml</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/Accion.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/CargarArchivoArbol.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/Zip.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/ListComponenXml.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/CodePanel.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/data/Conexion.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/manifest.mf</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/Anotacion.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/configuracion/xml_configuracion2.xml</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/interfazcore/EliminarComponente.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/interfazcore/ListaComponentes.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/core/Core.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/ExecuterComponent.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/Xml.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/configuracion/xml_integracion.xml</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/ima/inversa.png</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/interfazcore/ExecuteComponent.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/CoreSet.java</file>
+            <file>file:/C:/Users/mario/Documents/Proyectos/InterfazCore/InterfazCore/src/logica/CommonSet.java</file>
         </group>
     </open-files>
 </project-private>

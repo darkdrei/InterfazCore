@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package logica;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.logging.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
 /**
  *
@@ -32,7 +30,7 @@ public class LectorXml extends ComponenXml {
             this.setDocument((Document) this.getBuilder().build(this.getFile()));
             this.setRootNode(this.getDocument().getRootElement());
             List list = (List) this.getRootNode().getChildren();
-            
+
             for (Object object : list) {
                 Element ob = (Element) object;
                 if (ob.getName().equalsIgnoreCase("autor")) {
@@ -59,7 +57,7 @@ public class LectorXml extends ComponenXml {
                     } catch (NullPointerException r) {
                         this.getXml().getCuerpo().setColumnas(0);
                         this.getXml().getCuerpo().setTipo_datos(new String[]{});
-                    }catch(NumberFormatException n){
+                    } catch (NumberFormatException n) {
                         this.getXml().getCuerpo().setColumnas(0);
                         this.getXml().getCuerpo().setTipo_datos(new String[]{});
                     }
@@ -69,19 +67,20 @@ public class LectorXml extends ComponenXml {
                     } catch (NullPointerException r) {
                         this.getXml().getCuerpo().setMain("");
                     }
-                    ArrayList<String> parametros = new ArrayList<>();
+                    ArrayList<Xml.Parametro> parametros = new ArrayList<>();
                     try {
-                        Element param= ob.getChild("parametro");
+                        Element param = ob.getChild("parametro");
                         for (Element e : param.getChildren()) {
                             try {
-                                parametros.add(e.getName());
+                                Xml.Parametro p = this.getXml().new Parametro(e.getName(), e.getAttribute("nombre").getValue());
+                                parametros.add(p);
                             } catch (NullPointerException r) {
                                 System.err.println("Se exploto");
                             }
                         }
                     } catch (NullPointerException r) {
-                        
-                    }finally{
+
+                    } finally {
                         this.getXml().getCuerpo().setParametros(parametros);
                     }
                 }

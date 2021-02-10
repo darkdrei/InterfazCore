@@ -2,8 +2,8 @@
 <listado>
   <pluguin>
     <autor>
-      <nombre>Test 1</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
+      <nombre>Componente 1</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
       <version>4.1</version>
     </autor>
     <cuerpo>
@@ -20,8 +20,8 @@
   </pluguin>
   <pluguin>
     <autor>
-      <nombre>Test 2</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
+      <nombre>Componente 2</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
       <version>4.1</version>
     </autor>
     <cuerpo>
@@ -38,80 +38,8 @@
   </pluguin>
   <pluguin>
     <autor>
-      <nombre>Test 3</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 1</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="false" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
+      <nombre>Componente 3</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
       <version>4.1</version>
     </autor>
     <cuerpo>
@@ -129,7 +57,65 @@
   <pluguin>
     <autor>
       <nombre>Funcional</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+    <status active="true" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 5</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+    <status active="false" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Funcional</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+    <status active="false" />
+    <ruta>
+      <nombre />
+      <ruta />
+    </ruta>
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 2</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
       <version>4.1</version>
     </autor>
     <cuerpo>
@@ -144,8 +130,30 @@
     </cuerpo>
     <status active="true" />
     <ruta>
-      <nombre>xml_integracion.xml</nombre>
-      <ruta>src/configuracion/xml_configuracion.xml/ModuloFuncional2.jar</ruta>
+      <nombre />
+      <ruta />
+    </ruta>
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 2</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+    <status active="false" />
+    <ruta>
+      <nombre />
+      <ruta />
     </ruta>
   </pluguin>
 </listado>

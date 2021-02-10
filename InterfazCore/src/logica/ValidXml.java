@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package logica;
 
+import logica.Xml.Parametro;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,20 +33,21 @@ public class ValidXml implements Validacion {
     public boolean validExtencion(File f) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-    public boolean validExtencion(String f){
+    public boolean validExtencion(String f) {
         String[] dir = f.split("\\.");
-        if (dir.length <2)
+        if (dir.length < 2) {
             return false;
-        return dir[1].equalsIgnoreCase("xml")?true:false;
+        }
+        return dir[1].equalsIgnoreCase("xml") ? true : false;
     }
 
     @Override
     public boolean validEstructura(File xml_file) {
         try {
             SAXBuilder builder = new SAXBuilder();
-            Document document = (Document)builder.build(xml_file);
+            Document document = (Document) builder.build(xml_file);
             Element rootNode = document.getRootElement();
             List list = (List) rootNode.getChildren();
             Xml xml = new Xml();
@@ -75,7 +77,7 @@ public class ValidXml implements Validacion {
                     } catch (NullPointerException r) {
                         xml.getCuerpo().setColumnas(0);
                         xml.getCuerpo().setTipo_datos(new String[]{});
-                    }catch(NumberFormatException n){
+                    } catch (NumberFormatException n) {
                         xml.getCuerpo().setColumnas(0);
                         xml.getCuerpo().setTipo_datos(new String[]{});
                     }
@@ -85,39 +87,40 @@ public class ValidXml implements Validacion {
                     } catch (NullPointerException r) {
                         xml.getCuerpo().setMain("");
                     }
-                    ArrayList<String> parametros = new ArrayList<>();
+                    ArrayList<Parametro> parametros = new ArrayList<>();
                     try {
-                        Element param= ob.getChild("parametro");
+                        Element param = ob.getChild("parametro");
                         for (Element e : param.getChildren()) {
                             try {
-                                parametros.add(e.getName());
+                                Parametro p = xml.new Parametro(e.getName(), e.getAttribute("nombre").getValue());
+                                parametros.add(p);
                             } catch (NullPointerException r) {
                                 System.err.println("Se exploto");
                             }
                         }
                     } catch (NullPointerException r) {
-                        
-                    }finally{
+
+                    } finally {
                         xml.getCuerpo().setParametros(parametros);
                     }
                 }
 
             }
             boolean respuesta = true;
-            if(!xml.getAutor().getNombre().equals("")){
+            if (!xml.getAutor().getNombre().equals("")) {
                 return false;
-            }else if(xml.getCuerpo().getTipo_datos().length == 0){
+            } else if (xml.getCuerpo().getTipo_datos().length == 0) {
                 return false;
-            }else if(xml.getCuerpo().getParametros().size() == 0){
+            } else if (xml.getCuerpo().getParametros().size() == 0) {
                 return false;
             }
         } catch (JDOMException ex) {
             Logger.getLogger(ValidXml.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ValidXml.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
         }
         return true;
     }
-    
+
 }

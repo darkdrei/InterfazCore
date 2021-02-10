@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package logica;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,11 +73,11 @@ public class Xml implements Cloneable {
         this.ruta = ruta;
     }
 
-    public ArrayList<String> getParametros() {
+    public ArrayList<Parametro> getParametros() {
         return this.getCuerpo().getParametros();
     }
 
-    public void addParametro(String parametro) {
+    public void addParametro(Parametro parametro) {
         this.getCuerpo().getParametros().add(parametro);
     }
 
@@ -176,10 +176,10 @@ public class Xml implements Cloneable {
 
         private String[] tipo_datos;
         private int columnas;
-        private ArrayList<String> parametros;
+        private ArrayList<Parametro> parametros;
         private String main;
 
-        public Cuerpo(String[] tipo_datos, int columnas, ArrayList<String> parametros, String main) {
+        public Cuerpo(String[] tipo_datos, int columnas, ArrayList<Parametro> parametros, String main) {
             this.tipo_datos = tipo_datos;
             this.columnas = columnas;
             this.parametros = parametros;
@@ -217,11 +217,11 @@ public class Xml implements Cloneable {
             this.columnas = columnas;
         }
 
-        public ArrayList<String> getParametros() {
+        public ArrayList<Parametro> getParametros() {
             return parametros;
         }
 
-        public void setParametros(ArrayList<String> parametros) {
+        public void setParametros(ArrayList<Parametro> parametros) {
             this.parametros = parametros;
         }
 
@@ -255,6 +255,39 @@ public class Xml implements Cloneable {
 
     }
 
+    public class Parametro {
+
+        private String tipo;
+        private String nombre;
+
+        public Parametro(String tipo, String nombre) {
+            this.tipo = tipo;
+            this.nombre = nombre;
+        }
+
+        public String getTipo() {
+            return tipo;
+        }
+
+        public void setTipo(String tipo) {
+            this.tipo = tipo;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        @Override
+        public String toString() {
+            return "Parametro{" + "tipo=" + tipo + ", nombre=" + nombre + '}';
+        }
+
+    }
+
     public String toStringId() {
         return "\n ------ Pluguin ---> " + this.getId();
     }
@@ -277,7 +310,7 @@ public class Xml implements Cloneable {
         info += "\n" + this.getStatus().getActive();
         info += "\n";
         info += "\n*** Parametros : ";
-        for (String s : this.getParametros()) {
+        for (Parametro s : this.getParametros()) {
             info += "\n\t" + s;
         }
         info += "\n*** Tipos de datos de muestra : ";

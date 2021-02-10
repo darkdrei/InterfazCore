@@ -1,151 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listado>
-  <pluguin>
-    <autor>
-      <nombre>Test 1</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 2</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 3</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 1</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="false" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Funcional</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="true" />
-    <ruta>
-      <nombre>xml_integracion.xml</nombre>
-      <ruta>src/configuracion/xml_configuracion.xml/ModuloFuncional2.jar</ruta>
-    </ruta>
-  </pluguin>
+    <pluguin>
+        <autor>
+            <nombre>Componente 1</nombre>
+            <descripcion>Esto es un componente importado</descripcion>
+            <version>4.1</version>
+        </autor>
+        <cuerpo>
+            <tipo columnas="4" tipodatocolumna="Nombre, Apellido, Edad">
+                <claseprincipal />
+            </tipo>
+            <parametro>
+                <String nombre="Nombre"/>
+                <String nombre="Apellido"/>
+                <int nombre="Edad"/>
+            </parametro>
+        </cuerpo>
+        <status active="true" />
+    </pluguin>
+    <pluguin>
+        <autor>
+            <nombre>Componente 2</nombre>
+            <descripcion>Esto es un componente importado</descripcion>
+            <version>4.1</version>
+        </autor>
+        <cuerpo>
+            <tipo columnas="4" tipodatocolumna="Test1, Test2, Test3">
+                <claseprincipal />
+            </tipo>
+            <parametro>
+                <String nombre="Test 1"/>
+                <float nombre="Test 2"/>
+                <int nombre="Test 3"/>
+            </parametro>
+        </cuerpo>
+        <status active="true" />
+    </pluguin>
+    <pluguin>
+        <autor>
+            <nombre>Funcional</nombre>
+            <descripcion>Esto es un componente importado</descripcion>
+            <version>4.1</version>
+        </autor>
+        <cuerpo>
+            <tipo columnas="4" tipodatocolumna="A, B">
+                <claseprincipal />
+            </tipo>
+            <parametro>
+                <int nombre="A"/>
+                <int nombre="B" />
+            </parametro>
+        </cuerpo>
+        <status active="true" />
+    </pluguin>
 </listado>

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package logica;
 
+import logica.Xml.Parametro;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -82,7 +83,7 @@ public class ListComponenXml extends ComponenXml {
                         } catch (NullPointerException r) {
                             this.getXml().getCuerpo().setMain("");
                         }
-                        ArrayList<String> parametros = new ArrayList<>();
+                        ArrayList<Parametro> parametros = new ArrayList<>();
                         try {
                             //System.out.println("***************  " + ob.getChild("parametro"));
                             Element param = ob.getChild("parametro");
@@ -90,7 +91,8 @@ public class ListComponenXml extends ComponenXml {
                                 //System.out.println(e.getName());
                                 try {
                                     //System.out.println(e.getName());
-                                    parametros.add(e.getName());
+                                    Parametro p = this.getXml().new Parametro(e.getName(), e.getAttribute("nombre").getValue());
+                                    parametros.add(p);
                                 } catch (NullPointerException r) {
                                     System.err.println("Se exploto");
                                 }
@@ -122,7 +124,7 @@ public class ListComponenXml extends ComponenXml {
                 Element tem = (Element) object;
                 this.setXml(new Xml());
                 for (Element ob : tem.getChildren()) {
-                   // System.out.println(ob.getName());
+                    // System.out.println(ob.getName());
                     if (ob.getName().equalsIgnoreCase("autor")) {
                         try {
                             this.getXml().getAutor().setNombre(ob.getChild("nombre").getText());
@@ -163,15 +165,16 @@ public class ListComponenXml extends ComponenXml {
                         } catch (NullPointerException r) {
                             this.getXml().getCuerpo().setMain("");
                         }
-                        ArrayList<String> parametros = new ArrayList<>();
+                        ArrayList<Parametro> parametros = new ArrayList<>();
                         try {
                             //System.out.println("***************  " + ob.getChild("parametro"));
                             Element param = ob.getChild("parametro");
                             for (Element e : param.getChildren()) {
                                 //System.out.println(e.getName());
                                 try {
-                                   // System.out.println(e.getName());
-                                    parametros.add(e.getName());
+                                    Parametro p = xml.new Parametro(e.getName(), e.getAttribute("nombre").getValue());
+                                    // System.out.println(e.getName());
+                                    parametros.add(p);
                                 } catch (NullPointerException r) {
                                     System.err.println("Se exploto");
                                 }
@@ -215,10 +218,10 @@ public class ListComponenXml extends ComponenXml {
         }
         return null;
     }
-    
+
     @Override
     public int getPositionXmlById(int id) {
-        int i=0;
+        int i = 0;
         for (Xml x : this.getXmls()) {
             if (x.getId() == id) {
                 return i;
@@ -227,7 +230,7 @@ public class ListComponenXml extends ComponenXml {
         }
         return -1;
     }
-    
+
     @Override
     public boolean xmlExist(int id) {
         for (Xml x : this.getXmls()) {
@@ -253,13 +256,12 @@ public class ListComponenXml extends ComponenXml {
     public void updateFile(ArrayList<Xml> xmls) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-    public void updateFile(int position, Xml xml){
+    public void updateFile(int position, Xml xml) {
         this.getXmls().set(position, xml);
         this.updateFile();
     }
-
 
     @Override
     public void updateFile() {
@@ -280,8 +282,8 @@ public class ListComponenXml extends ComponenXml {
                 tipo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
                 status.setAttribute("active", String.valueOf(xml.getStatus().getActive()));
                 Element parametro = new Element("parametro");
-                for (String dato : xml.getCuerpo().getParametros()) {
-                    parametro.addContent(new Element(dato));
+                for (Parametro dato : xml.getCuerpo().getParametros()) {
+                    parametro.addContent(new Element(dato.getTipo()).setAttribute("nombre", dato.getNombre()));
                 }
                 cuerpo.addContent(parametro);
                 Element pluguin = new Element("pluguin");
