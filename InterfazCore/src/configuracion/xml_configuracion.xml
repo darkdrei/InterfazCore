@@ -1,56 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listado>
-    <pluguin>
-        <autor>
-            <nombre>Componente 1</nombre>
-            <descripcion>Esto es un componente importado</descripcion>
-            <version>4.1</version>
-        </autor>
-        <cuerpo>
-            <tipo columnas="4" tipodatocolumna="Nombre, Apellido, Edad">
-                <claseprincipal />
-            </tipo>
-            <parametro>
-                <String nombre="Nombre"/>
-                <String nombre="Apellido"/>
-                <int nombre="Edad"/>
-            </parametro>
-        </cuerpo>
-        <status active="true" />
-    </pluguin>
-    <pluguin>
-        <autor>
-            <nombre>Componente 2</nombre>
-            <descripcion>Esto es un componente importado</descripcion>
-            <version>4.1</version>
-        </autor>
-        <cuerpo>
-            <tipo columnas="4" tipodatocolumna="Test1, Test2, Test3">
-                <claseprincipal />
-            </tipo>
-            <parametro>
-                <String nombre="Test 1"/>
-                <float nombre="Test 2"/>
-                <int nombre="Test 3"/>
-            </parametro>
-        </cuerpo>
-        <status active="true" />
-    </pluguin>
-    <pluguin>
-        <autor>
-            <nombre>Funcional</nombre>
-            <descripcion>Esto es un componente importado</descripcion>
-            <version>4.1</version>
-        </autor>
-        <cuerpo>
-            <tipo columnas="4" tipodatocolumna="A, B">
-                <claseprincipal />
-            </tipo>
-            <parametro>
-                <int nombre="A"/>
-                <int nombre="B" />
-            </parametro>
-        </cuerpo>
-        <status active="true" />
-    </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 2</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="Test1, Test2, Test3">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String nombre="Test 1" />
+        <float nombre="Test 2" />
+        <int nombre="Test 3" />
+      </parametro>
+    </cuerpo>
+    <status active="true" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 3</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="AB, BD">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <float nombre="AB" />
+        <int nombre="BD" />
+      </parametro>
+    </cuerpo>
+    <status active="true" />
+  </pluguin>
 </listado>

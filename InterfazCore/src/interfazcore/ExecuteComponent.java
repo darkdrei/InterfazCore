@@ -158,7 +158,6 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
     }
 
     public void loadParameter() {
-        System.out.println("*####Loadparameter---------------------> " + this.xml.getParametros());
         for (Xml.Parametro p : this.xml.getParametros()) {
             jpComponenteParametro parametro = new jpComponenteParametro(0, this.getDataType(p.getTipo()), p.getNombre());
             panelParametros.add(parametro);

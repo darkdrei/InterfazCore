@@ -37,15 +37,20 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
     LectorXml l = new LectorXml();
     ValidXml vxml = new ValidXml();
     OSValidator os;
-    ListComponenXml list = new ListComponenXml();
-    String path = "";
-    String image_path = "";
+    private ListComponenXml list;
+    private boolean exisFile;
+    private boolean validExtencion;
+    private String warningMsgM;
 
     /**
      * Creates new form NewJDialog
      */
-    public EliminarComponente(java.awt.Frame parent, boolean modal) {
+    public EliminarComponente(java.awt.Frame parent, ListComponenXml list, boolean exisFile, boolean validExtencion, String warningMsg, boolean modal) {
         super(parent, modal);
+        this.list = list;
+        this.exisFile = exisFile;
+        this.validExtencion = validExtencion;
+        this.warningMsgM = warningMsg;
         initComponents();
         setLocationRelativeTo(parent);
         listaDeComponentes();
@@ -54,20 +59,12 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
 
     private void listaDeComponentes() {
         columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión", ""};
-        if (os.getOS().equals("win")) {
-            path = "src\\configuracion\\xml_configuracion.xml";
-        } else {
-            path = "src/configuracion/xml_configuracion.xml";
-        }
-        boolean exisFile = vxml.exisFile(path);
-        boolean validExtencion = vxml.validExtencion(path);
         TablaComponentes.setDefaultRenderer(Object.class, new Render());
         JButton btn_eliminar = new JButton("Eliminar");
-        if (exisFile & validExtencion) {
+        if (this.exisFile & this.validExtencion) {
             //WriteComponenXml componen = new WriteComponenXml();
             //componen.writeFile(path,l.getXml());
-            list.loadingFile(path);
-            list.readNodeFile();
+
             data = new Object[list.getXmls().size()][5];
             int i = 0;
             for (Xml x : list.getXmls()) {
@@ -101,15 +98,7 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
 
     @Override
     public void tableChanged(TableModelEvent e) {
-        int row = e.getFirstRow();
-        int column = e.getColumn();
-        TableModel model;
-        model = (TableModel) e.getSource();
-        Object response = model.getValueAt(row, column);
-        Xml x = list.getXmls().get(row);
-        x.getStatus().setActive(Boolean.valueOf(response.toString()));
-        WriteComponenXml wXml = new WriteComponenXml();
-        wXml.writeFile(path, x);
+
         //JOptionPane.showMessageDialog(TablaComponentes, list.getXmls().get(row).getStatus());
 //        ...// Do something with the data...
     }
@@ -135,7 +124,6 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
 
         jPanel2.setBackground(new java.awt.Color(228, 228, 228));
 
-        TablaComponentes.setBorder(null);
         TablaComponentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -247,8 +235,9 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
                     list.removeXml(list.getXmls().get(selectedRow));
                     TextInformacion.setText("");
                     listaDeComponentes();
+                    JOptionPane.showMessageDialog(TablaComponentes, this.warningMsgM);
                 } else {
-                    System.out.println("cncelado");
+                    System.out.println("cancelado");
                 }
             }
         }

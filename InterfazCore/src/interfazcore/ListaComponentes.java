@@ -5,10 +5,7 @@
  */
 package interfazcore;
 
-import logica.LectorXml;
 import logica.ListComponenXml;
-import logica.ValidXml;
-import logica.WriteComponenXml;
 import logica.Xml;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +15,6 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import logica.OSValidator;
 
 /**
  *
@@ -26,19 +22,22 @@ import logica.OSValidator;
  */
 public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener {
 
-    Object[][] data = null;
+    private ListComponenXml list;
+    private boolean exisFile;
+    private boolean validExtencion;
+    private String warningMsg;
+    private Object[][] data = null;
     String[] columNames = new String[3];
-    LectorXml l = new LectorXml();
-    ValidXml vxml = new ValidXml();
-    OSValidator os;
-    ListComponenXml list = new ListComponenXml();
-    String path = "";
 
     /**
      * Creates new form NewJDialog
      */
-    public ListaComponentes(java.awt.Frame parent, boolean modal) {
+    public ListaComponentes(java.awt.Frame parent, ListComponenXml list, boolean exisFile, boolean validExtencion, String warningMsg, boolean modal) {
         super(parent, modal);
+        this.list = list;
+        this.exisFile = exisFile;
+        this.warningMsg = warningMsg;
+        this.validExtencion = validExtencion;
         initComponents();
         setLocationRelativeTo(parent);
         listaDeComponentes();
@@ -47,19 +46,8 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
 
     private void listaDeComponentes() {
         columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión"};
-        if (os.getOS().equals("win")) {
-            path = "src\\configuracion\\xml_configuracion.xml";
-        } else {
-            path = "src/configuracion/xml_configuracion.xml";
-        }
-        boolean exisFile = vxml.exisFile(path);
-        boolean validExtencion = vxml.validExtencion(path);
 
-        if (exisFile & validExtencion) {
-            //WriteComponenXml componen = new WriteComponenXml();
-            //componen.writeFile(path,l.getXml());
-            list.loadingFile(path);
-            list.readNodeFile();
+        if (this.exisFile & this.validExtencion) {
             data = new Object[list.getXmls().size()][4];
 
             for (Xml x : list.getXmls()) {
@@ -102,10 +90,17 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         Object response = model.getValueAt(row, column);
         Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
-        WriteComponenXml wXml = new WriteComponenXml();
-        wXml.writeFile(path, x);
-        JOptionPane.showMessageDialog(TablaComponentes, list.getXmls().get(row).getStatus());
+        list.updateFile(row, x);
+        JOptionPane.showMessageDialog(TablaComponentes, "El componente " + list.getXmls().get(row).getAutor().getNombre() + " fue " + getEstadoName(list.getXmls().get(row).getStatus().getActive()) + "\n" + this.warningMsg);
 //        ...// Do something with the data...
+        this.listaDeComponentes();
+    }
+
+    private String getEstadoName(boolean estatus) {
+        if (estatus) {
+            return "Activado.";
+        }
+        return "Desactivado.";
     }
 
     /**

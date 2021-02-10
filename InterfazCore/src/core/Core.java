@@ -29,6 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.UIManager;
@@ -94,10 +95,28 @@ public class Core
     public Core()
             throws InstantiationException, IllegalAccessException {
         setTitle("Interfaz - Integradora");
+        String warningMsg = "Debe reiniciar la aplicación para que estos cambios tengan efectos.";
 
         this.control = new CControl(this);
         this.control.setTheme("eclipse");
         add(this.control.getContentArea());
+
+        if (os.getOS().equals("win")) {
+            path = "src\\configuracion\\xml_configuracion.xml";
+        } else {
+            path = "src/configuracion/xml_configuracion.xml";
+        }
+        ValidXml vxml = new ValidXml();
+        boolean exisFile = vxml.exisFile(path);
+        boolean validExtencion = vxml.validExtencion(path);
+        if (exisFile & validExtencion) {
+            list.loadingFile(path);
+            list.readNodeFile();
+        } else {
+            JDialog d = new JDialog();
+            d.setTitle("El archivo de configuracion ha sido alterado");
+            d.setVisible(true);
+        }
         /*
          Agregar Menu
          */
@@ -114,7 +133,7 @@ public class Core
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog eliminar = new EliminarComponente(Core.this, true);
+                JDialog eliminar = new EliminarComponente(Core.this, list, exisFile, validExtencion, warningMsg, true);
                 eliminar.setVisible(true);
             }
 
@@ -147,7 +166,7 @@ public class Core
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog vista = new ListaComponentes(Core.this, true);
+                JDialog vista = new ListaComponentes(Core.this, list, exisFile, validExtencion, warningMsg, true);
                 vista.setVisible(true);
             }
 
@@ -230,12 +249,8 @@ public class Core
         } else {
             path = "src/configuracion/xml_configuracion.xml";
         }
-        ValidXml vxml = new ValidXml();
-        boolean exisFile = vxml.exisFile(path);
-        boolean validExtencion = vxml.validExtencion(path);
+
         if (exisFile & validExtencion) {
-            list.loadingFile(path);
-            list.readNodeFile();
             /*   Ejecutador de codigo       */
             for (Xml x : list.getXmls()) {
                 if (x.getStatus().getActive()) {
