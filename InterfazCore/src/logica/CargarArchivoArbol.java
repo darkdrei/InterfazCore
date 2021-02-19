@@ -45,7 +45,7 @@ public class CargarArchivoArbol extends CButton {
     public CargarArchivoArbol(CodePanel panel) {
         this.panel = panel;
         setText("Abrir archivo");
-        setTooltip("Cargado de archivo");
+        setTooltip("Cargado de archivo.");
         Image image = null;
         
         try {
@@ -77,7 +77,7 @@ public class CargarArchivoArbol extends CButton {
                 File sourceimage = new File("src/ima/copy.png");
                 image = ImageIO.read(sourceimage);
             }
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
         ImageIcon icon = new ImageIcon(image);
@@ -96,10 +96,9 @@ public class CargarArchivoArbol extends CButton {
             //System.out.println(fc.getSelectedFile().getAbsolutePath());
             File dir = new File(fc.getSelectedFile().getAbsolutePath());
             String archivos[] = dir.list();
-            System.err.println(archivos.length);
+            System.err.println("Se exploto la vaina ---->>>> " +archivos.length);
             leerDirectorio(archivos, fc.getSelectedFile().getAbsolutePath(),carpetaRaiz,0);
         }
-
         this.getBase().getTree().setModel(modelo);
     }
 
@@ -120,6 +119,10 @@ public class CargarArchivoArbol extends CButton {
     }
 
     public void leerDirectorio(String[] r, String path,DefaultMutableTreeNode padre,int i) {
+        System.out.println("Componente es -> "+ r);
+        if(r == null){
+            return;
+        }
         for (String f : r) {
             if (f.contains(".")) {
                 String ruta = path + "/" + f;
@@ -172,30 +175,29 @@ public class CargarArchivoArbol extends CButton {
         } catch (IOException ex) {
         }
         return "n/a";
-    
     }
     
     public String getCode(String ruta) throws IOException{
 			InputStream in = new FileInputStream(ruta);
-			if( in == null ){
-				return "n/a";
-			}
-			if( in != null ){
-				StringBuilder builder = new StringBuilder();
-				InputStreamReader reader = new InputStreamReader( in, "UTF-8" );
-				int next;
-				while( (next = reader.read()) != -1 ){
-					if( next == '\t' ){
-						builder.append( "    " );
-					}
-					else{
-						builder.append( (char)next );
-					}
-				}
-				reader.close();
-				return builder.toString();
-			}
-			return "n/a";
-		}
+        if( in == null ){
+                return "n/a";
+        }
+        if( in != null ){
+                StringBuilder builder = new StringBuilder();
+                InputStreamReader reader = new InputStreamReader( in, "UTF-8" );
+                int next;
+                while( (next = reader.read()) != -1 ){
+                        if( next == '\t' ){
+                                builder.append( "    " );
+                        }
+                        else{
+                                builder.append( (char)next );
+                        }
+                }
+                reader.close();
+                return builder.toString();
+        }
+        return "n/a";
+    }
     
 }
