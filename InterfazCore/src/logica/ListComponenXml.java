@@ -34,6 +34,7 @@ public class ListComponenXml extends ComponenXml {
 
     @Override
     public void readNodeFile() {
+        this.setXmls(new ArrayList<>());
         try {
             this.setDocument((Document) this.getBuilder().build(this.getFile()));
             this.setRootNode(this.getDocument().getRootElement());
@@ -78,7 +79,6 @@ public class ListComponenXml extends ComponenXml {
                             this.getXml().getCuerpo().setTipo_datos(new String[]{});
                         }
                         try {
-                            Element tipo = ob.getChild("claseprincipal");
                             this.getXml().getCuerpo().setMain(ob.getChild("claseprincipal").getValue());
                         } catch (NullPointerException r) {
                             this.getXml().getCuerpo().setMain("");
@@ -101,6 +101,13 @@ public class ListComponenXml extends ComponenXml {
 
                         } finally {
                             this.getXml().getCuerpo().setParametros(parametros);
+                        }
+                    } else if (ob.getName().equalsIgnoreCase("ruta")) {
+                        try {
+                            this.getXml().getRuta().setNombre(ob.getChild("nombre").getText());
+                            this.getXml().getRuta().setDireccion(ob.getChild("direccion").getText());
+                        } catch (Exception e) {
+                            System.err.println("Error leyendo la ruta ---" + e);
                         }
                     }
                 }
@@ -160,9 +167,9 @@ public class ListComponenXml extends ComponenXml {
                             this.getXml().getCuerpo().setTipo_datos(new String[]{});
                         }
                         try {
-                            Element tipo = ob.getChild("claseprincipal");
-                            this.getXml().getCuerpo().setMain(ob.getChild("claseprincipal").getValue());
+                            this.getXml().getCuerpo().setMain(ob.getChild("claseprincipal").getText());
                         } catch (NullPointerException r) {
+                            System.err.println("Calse principal ----" + r);
                             this.getXml().getCuerpo().setMain("");
                         }
                         ArrayList<Parametro> parametros = new ArrayList<>();
@@ -183,6 +190,13 @@ public class ListComponenXml extends ComponenXml {
 
                         } finally {
                             this.getXml().getCuerpo().setParametros(parametros);
+                        }
+                    } else if (ob.getName().equalsIgnoreCase("ruta")) {
+                        try {
+                            this.getXml().getRuta().setNombre(ob.getChild("nombre").getText());
+                            this.getXml().getRuta().setDireccion(ob.getChild("direccion").getText());
+                        } catch (Exception e) {
+                            System.err.println("Error leyendo la ruta ---" + e);
                         }
                     }
                 }
@@ -274,12 +288,15 @@ public class ListComponenXml extends ComponenXml {
                 autor.addContent(new Element("descripcion").setText(xml.getAutor().getDescripcion()));
                 autor.addContent(new Element("version").setText(xml.getAutor().getVersion()));
                 Element cuerpo = new Element("cuerpo");
+                Element ruta = new Element("ruta");
                 Element tipo = new Element("tipo");
                 Element status = new Element("status");
                 tipo.setAttribute("columnas", "" + xml.getCuerpo().getColumnas());
                 tipo.setAttribute("tipodatocolumna", String.join(",", xml.getCuerpo().getTipo_datos()));
                 cuerpo.addContent(tipo);
-                tipo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
+                cuerpo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
+                ruta.addContent(new Element("nombre").setText(xml.getRuta().getNombre()));
+                ruta.addContent(new Element("direccion").setText(xml.getRuta().getDireccion()));
                 status.setAttribute("active", String.valueOf(xml.getStatus().getActive()));
                 Element parametro = new Element("parametro");
                 for (Parametro dato : xml.getCuerpo().getParametros()) {
@@ -289,6 +306,7 @@ public class ListComponenXml extends ComponenXml {
                 Element pluguin = new Element("pluguin");
                 pluguin.addContent(autor);
                 pluguin.addContent(cuerpo);
+                pluguin.addContent(ruta);
                 pluguin.addContent(status);
                 root.addContent(pluguin);
             };

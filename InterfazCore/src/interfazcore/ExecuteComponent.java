@@ -122,7 +122,8 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
         // TODO add your handling code here:
         if (validarParametros()) {
             try {
-                String ruta = "/home/dark/NetBeansProjects/InterfazCore/src/configuracion/ModuloFuncional2.jar";
+//                String ruta = "/home/dark/NetBeansProjects/InterfazCore/src/configuracion/ModuloFuncional2.jar";
+                String ruta = this.xml.getRuta().getDireccion();
                 ArrayList<String> parametros = new ArrayList<>();
                 for (jpComponenteParametro component_parameter : this.parametros) {
                     parametros.add(component_parameter.getValue());

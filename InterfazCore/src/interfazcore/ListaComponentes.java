@@ -46,7 +46,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
 
     private void listaDeComponentes() {
         columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión"};
-
+        list.readNodeFile();
         if (this.exisFile & this.validExtencion) {
             data = new Object[list.getXmls().size()][4];
 

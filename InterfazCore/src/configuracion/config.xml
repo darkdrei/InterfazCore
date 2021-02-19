@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pluguin>
+	<autor>	
+		<nombre>Test componente 1</nombre>
+		<descripcion>Primer componente de prueba</descripcion>
+		<version>0.0.1</version>
+	</autor>
+	<cuerpo>
+     <tipo columnas="1" tipodatocolumna="Test1">
+    </tipo>
+    <claseprincipal>ModuloFuncional2</claseprincipal>
+    <parametro>
+        <String nombre="args"></String>
+    </parametro>
+	</cuerpo>
+</pluguin>
