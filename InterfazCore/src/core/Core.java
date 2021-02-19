@@ -49,6 +49,7 @@ import logica.ModelTree;
 import logica.OSValidator;
 import logica.ValidXml;
 import logica.Xml;
+import java.util.ArrayList;
 
 public class Core
         extends JFrame {
@@ -64,6 +65,7 @@ public class Core
     public String path = "";
     public OSValidator os;
     public CControl control;
+    public ArrayList<CodePanel> currentCodes = new ArrayList();
 
     public static void main(String[] args)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
@@ -197,16 +199,8 @@ public class Core
         currentSelectionDockable.add(this.currentSelection, "Center");
         currentSelectionDockable.setCloseable(false);
         // layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[] { currentSelectionDockable });
-
-        this.currentCode = new CodePanel();
-        DefaultSingleCDockable currentCodeDockable = new DefaultSingleCDockable("code", "Code", new CAction[0]);
-        currentCodeDockable.setLayout(new BorderLayout());
-        currentCodeDockable.add(this.currentCode.toComponent(), "Center");
-        currentCodeDockable.setCloseable(false);
-        if (!control.getController().isRestrictedEnvironment()) {
-            currentCodeDockable.addAction(new CopyCodeAction(this.currentCode));
-        }
-        this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable});
+        /***********************************************************************/
+        
         //layout.select(30.0D, 0.0D, 70.0D, 100.0D, currentSelectionDockable);
         /**
          * **********************************************************************
@@ -231,17 +225,22 @@ public class Core
         listDockable.addAction(cargador_de_archivo);
         tree.addTreeSelectionListener((TreeSelectionEvent e) -> {
             TreePath path = tree.getSelectionPath();
-            System.err.println(path.toString());
-            System.err.println(path.getPathComponent(path.getPath().length - 1).toString());
+            System.out.println(path.toString());
+            System.out.println(path.getPathComponent(path.getPath().length - 1).toString());
             System.out.println("Componente es .... " + path.getPathComponent(path.getPath().length - 1).toString());
             DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
-            try {
-                if (cargador_de_archivo.validarExistencia(desc.getNombre())) {
-                    currentCode.setCode(cargador_de_archivo.producirContenido(desc));
-                }
-            } catch (NullPointerException er) {
-                currentCode.setCode("");
+            String name_file = path.getPathComponent(path.getPath().length - 1).toString();
+            CodePanel temporal_codepanel = new CodePanel();
+            DefaultSingleCDockable currentCodeDockable_ = new DefaultSingleCDockable(name_file, name_file, new CAction[0]);
+            currentCodeDockable_.setLayout(new BorderLayout());
+            currentCodeDockable_.add(temporal_codepanel.toComponent(), "Center");
+            currentCodeDockable_.setCloseable(false);
+            if (!control.getController().isRestrictedEnvironment()) {
+                currentCodeDockable_.addAction(new CopyCodeAction(temporal_codepanel));
             }
+            this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable_});
+            temporal_codepanel.setCode(cargador_de_archivo.producirContenido(desc));
+            control.getContentArea().deploy(this.layout);
         });
         this.layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
         if (os.getOS().equals("win")) {
@@ -261,6 +260,7 @@ public class Core
                     executecomponene_dockable.setCloseable(true);
                     //this.layout.add(30, 0, 70, 100, executecomponene_dockable);
                     this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
+                    
                 }
             }
         }
@@ -270,8 +270,8 @@ public class Core
          */
         control.getContentArea().deploy(this.layout);
         /**
-         * * CARGAR EN CODE **
-         */
+        * * CARGAR EN CODE **
+        */
     }
 
     public JTree getTree() {
