@@ -184,7 +184,7 @@ public class Core
          */
         /*                  CODIGFO DE CARGADO DE ARCHIVO                        */
         lector_archivo = new LectorArchivo(this);
-        this.lectorSeleccionDockable = new DefaultSingleCDockable("selection", "Selection");
+        this.lectorSeleccionDockable = new DefaultSingleCDockable("selection", "Agregar componente");
         this.lectorSeleccionDockable.setLayout(new BorderLayout());
         this.lectorSeleccionDockable.add(lector_archivo, BorderLayout.CENTER);
         this.lectorSeleccionDockable.setCloseable(true);
@@ -194,13 +194,15 @@ public class Core
          * **********************************************************************
          */
         this.currentSelection = new BasePanel();
-        DefaultSingleCDockable currentSelectionDockable = new DefaultSingleCDockable("selection", "Seleccion", new CAction[0]);
+        DefaultSingleCDockable currentSelectionDockable = new DefaultSingleCDockable("selection", "Agregar componente", new CAction[0]);
         currentSelectionDockable.setLayout(new BorderLayout());
         currentSelectionDockable.add(this.currentSelection, "Center");
         currentSelectionDockable.setCloseable(false);
         // layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[] { currentSelectionDockable });
-        /***********************************************************************/
-        
+        /**
+         * ********************************************************************
+         */
+
         //layout.select(30.0D, 0.0D, 70.0D, 100.0D, currentSelectionDockable);
         /**
          * **********************************************************************
@@ -260,7 +262,7 @@ public class Core
                     executecomponene_dockable.setCloseable(true);
                     //this.layout.add(30, 0, 70, 100, executecomponene_dockable);
                     this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
-                    
+
                 }
             }
         }
@@ -270,8 +272,8 @@ public class Core
          */
         control.getContentArea().deploy(this.layout);
         /**
-        * * CARGAR EN CODE **
-        */
+         * * CARGAR EN CODE **
+         */
     }
 
     public JTree getTree() {

@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listado>
-    <pluguin>
-        <autor>
-            <nombre>Componente 2</nombre>
-            <descripcion>Esto es un componente importado</descripcion>
-            <version>4.1</version>
-        </autor>
-        <cuerpo>
-            <tipo columnas="3" tipodatocolumna="Test1, Test2, Test3" />
-            <claseprincipal>test1</claseprincipal>
-            <parametro>
-                <String nombre="Test 1" />
-                <float nombre="Test 2" />
-                <int nombre="Test 3" />
-            </parametro>
-        </cuerpo>
-        <ruta>
-            <nombre />
-            <direccionXml />
-            <direccionJar />
-        </ruta>
-        <status active="true" />
-    </pluguin>
-    <pluguin>
-        <autor>
-            <nombre>Componente 3</nombre>
-            <descripcion>Esto es un componente importado</descripcion>
-            <version>4.1</version>
-        </autor>
-        <cuerpo>
-            <tipo columnas="2" tipodatocolumna="AB, BD" />
-            <claseprincipal>test1</claseprincipal>
-            <parametro>
-                <float nombre="AB" />
-                <int nombre="BD" />
-            </parametro>
-        </cuerpo>
-        <ruta>
-            <nombre />
-            <direccionXml />
-            <direccionJar />
-        </ruta>
-        <status active="false" />
-    </pluguin>
-    <pluguin>
-        <autor>
-            <nombre>Test componente 1</nombre>
-            <descripcion>Primer componente de prueba</descripcion>
-            <version>0.0.1</version>
-        </autor>
-        <cuerpo>
-            <tipo columnas="1" tipodatocolumna="Test1">
-                <claseprincipal>ModuloFuncional2</claseprincipal>
-            </tipo>
-            <parametro>
-                <String nombre="args" />
-            </parametro>
-        </cuerpo>
-        <status active="true" />
-        <ruta>
-            <nombre>config.xml</nombre>
-            <direccionXml>src\configuracion\jars\config.xml</direccionXml>
-            <direccionJar>src\configuracion\jars\ModuloFuncional2.jar</direccionJar>
-        </ruta>
-    </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 2</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="3" tipodatocolumna="Test1, Test2, Test3" />
+      <claseprincipal>test1</claseprincipal>
+      <parametro>
+        <String nombre="Test 1" />
+        <float nombre="Test 2" />
+        <int nombre="Test 3" />
+      </parametro>
+    </cuerpo>
+    <ruta>
+      <nombre />
+      <direccionXml />
+      <direccionJar />
+    </ruta>
+    <status active="true" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Componente 3</nombre>
+      <descripcion>Esto es un componente importado</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="2" tipodatocolumna="AB, BD" />
+      <claseprincipal>test1</claseprincipal>
+      <parametro>
+        <float nombre="AB" />
+        <int nombre="BD" />
+      </parametro>
+    </cuerpo>
+    <ruta>
+      <nombre />
+      <direccionXml />
+      <direccionJar />
+    </ruta>
+    <status active="false" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre>Test componente 1</nombre>
+      <descripcion>Primer componente de prueba</descripcion>
+      <version>0.0.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="1" tipodatocolumna="Test1">
+        <claseprincipal>ModuloFuncional2</claseprincipal>
+      </tipo>
+      <parametro>
+        <String nombre="args" />
+      </parametro>
+    </cuerpo>
+    <status active="true" />
+    <ruta>
+      <nombre>config.xml</nombre>
+      <direccionXml>src\configuracion\jars\config.xml</direccionXml>
+      <direccionJar>src\configuracion\jars\ModuloFuncional2.jar</direccionJar>
+    </ruta>
+  </pluguin>
 </listado>
