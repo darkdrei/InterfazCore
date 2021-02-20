@@ -32,7 +32,7 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
         parametros = new ArrayList<>();
         this.loadParameter();
         Object[][] data = new Object[0][2];
-        String[] head = {"indice", "Nombre"};
+        String[] head = this.xml.getCuerpo().getTipo_datos();;
         this.updateTable(head, data);
     }
 
@@ -44,7 +44,7 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
         parametros = new ArrayList<>();
         this.loadParameter();
         Object[][] data = new Object[0][2];
-        String[] head = {"indice", "Nombre"};
+        String[] head = this.xml.getCuerpo().getTipo_datos();;
         this.updateTable(head, data);
     }
 
@@ -123,7 +123,7 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
         if (validarParametros()) {
             try {
 //                String ruta = "/home/dark/NetBeansProjects/InterfazCore/src/configuracion/ModuloFuncional2.jar";
-                String ruta = this.xml.getRuta().getDireccion();
+                String ruta = this.xml.getRuta().getDireccionJar();
                 ArrayList<String> parametros = new ArrayList<>();
                 for (jpComponenteParametro component_parameter : this.parametros) {
                     parametros.add(component_parameter.getValue());
@@ -131,7 +131,7 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
                 ExecuterComponent exec = new ExecuterComponent();
                 ExecuterComponent.ResponseExecuter response = exec.executeJar(ruta, parametros, 2);
                 if (response.isValido()) {
-                    String[] head = {"indice", "Nombre"};
+                    String[] head = this.xml.getCuerpo().getTipo_datos();
                     updateTable(head, response.getData());
                 } else {
                     JOptionPane.showMessageDialog(this, response.getMensage(), "Ejecutar componente", JOptionPane.INFORMATION_MESSAGE);

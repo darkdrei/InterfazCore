@@ -105,7 +105,8 @@ public class ListComponenXml extends ComponenXml {
                     } else if (ob.getName().equalsIgnoreCase("ruta")) {
                         try {
                             this.getXml().getRuta().setNombre(ob.getChild("nombre").getText());
-                            this.getXml().getRuta().setDireccion(ob.getChild("direccion").getText());
+                            this.getXml().getRuta().setDireccionXml(ob.getChild("direccionXml").getText());
+                            this.getXml().getRuta().setDireccionJar(ob.getChild("direccionJar").getText());
                         } catch (Exception e) {
                             System.err.println("Error leyendo la ruta ---" + e);
                         }
@@ -194,7 +195,8 @@ public class ListComponenXml extends ComponenXml {
                     } else if (ob.getName().equalsIgnoreCase("ruta")) {
                         try {
                             this.getXml().getRuta().setNombre(ob.getChild("nombre").getText());
-                            this.getXml().getRuta().setDireccion(ob.getChild("direccion").getText());
+                            this.getXml().getRuta().setDireccionXml(ob.getChild("direccionXml").getText());
+                            this.getXml().getRuta().setDireccionJar(ob.getChild("direccionJar").getText());
                         } catch (Exception e) {
                             System.err.println("Error leyendo la ruta ---" + e);
                         }
@@ -296,7 +298,8 @@ public class ListComponenXml extends ComponenXml {
                 cuerpo.addContent(tipo);
                 cuerpo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
                 ruta.addContent(new Element("nombre").setText(xml.getRuta().getNombre()));
-                ruta.addContent(new Element("direccion").setText(xml.getRuta().getDireccion()));
+                ruta.addContent(new Element("direccionXml").setText(xml.getRuta().getDireccionXml()));
+                ruta.addContent(new Element("direccionJar").setText(xml.getRuta().getDireccionJar()));
                 status.setAttribute("active", String.valueOf(xml.getStatus().getActive()));
                 Element parametro = new Element("parametro");
                 for (Parametro dato : xml.getCuerpo().getParametros()) {

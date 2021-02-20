@@ -7,7 +7,7 @@
             <version>4.1</version>
         </autor>
         <cuerpo>
-            <tipo columnas="4" tipodatocolumna="Test1, Test2, Test3" />
+            <tipo columnas="3" tipodatocolumna="Test1, Test2, Test3" />
             <claseprincipal>test1</claseprincipal>
             <parametro>
                 <String nombre="Test 1" />
@@ -17,7 +17,8 @@
         </cuerpo>
         <ruta>
             <nombre />
-            <direccion />
+            <direccionXml />
+            <direccionJar />
         </ruta>
         <status active="true" />
     </pluguin>
@@ -28,7 +29,7 @@
             <version>4.1</version>
         </autor>
         <cuerpo>
-            <tipo columnas="4" tipodatocolumna="AB, BD" />
+            <tipo columnas="2" tipodatocolumna="AB, BD" />
             <claseprincipal>test1</claseprincipal>
             <parametro>
                 <float nombre="AB" />
@@ -37,9 +38,10 @@
         </cuerpo>
         <ruta>
             <nombre />
-            <direccion />
+            <direccionXml />
+            <direccionJar />
         </ruta>
-        <status active="true" />
+        <status active="false" />
     </pluguin>
     <pluguin>
         <autor>
@@ -48,16 +50,18 @@
             <version>0.0.1</version>
         </autor>
         <cuerpo>
-            <tipo columnas="1" tipodatocolumna="Test1" />
-            <claseprincipal>ModuloFuncional2</claseprincipal>
+            <tipo columnas="1" tipodatocolumna="Test1">
+                <claseprincipal>ModuloFuncional2</claseprincipal>
+            </tipo>
             <parametro>
                 <String nombre="args" />
             </parametro>
         </cuerpo>
+        <status active="true" />
         <ruta>
             <nombre>config.xml</nombre>
-            <direccion>src\configuracion\xml_configuracion.xml\config.xml</direccion>
+            <direccionXml>src\configuracion\jars\config.xml</direccionXml>
+            <direccionJar>src\configuracion\jars\ModuloFuncional2.jar</direccionJar>
         </ruta>
-        <status active="true" />
     </pluguin>
 </listado>

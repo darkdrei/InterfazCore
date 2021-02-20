@@ -93,7 +93,8 @@ public class WriteComponenXml extends ComponenXml {
             cuerpo.addContent(parametro);
             Element ruta_jar = new Element("ruta");
             ruta_jar.addContent(new Element("nombre").setText(xml.getRuta().getNombre()));
-            ruta_jar.addContent(new Element("direccion").setText(xml.getRuta().getDireccion()));
+            ruta_jar.addContent(new Element("direccionXml").setText(xml.getRuta().getDireccionXml()));
+            ruta_jar.addContent(new Element("direccionJar").setText(xml.getRuta().getDireccionJar()));
             Element pluguin = new Element("pluguin");
             pluguin.addContent(autor);
             pluguin.addContent(cuerpo);

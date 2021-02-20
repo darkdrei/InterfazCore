@@ -88,11 +88,13 @@ public class Xml implements Cloneable {
     public class Ruta {
 
         private String nombre;
-        private String direccion;
+        private String direccionXml;
+        private String direccionJar;
 
-        public Ruta(String nombre, String ruta) {
+        public Ruta(String nombre, String ruta, String direccionJar) {
             this.nombre = nombre;
-            this.direccion = ruta;
+            this.direccionXml = ruta;
+            this.direccionJar = direccionJar;
         }
 
         public String getNombre() {
@@ -103,22 +105,31 @@ public class Xml implements Cloneable {
             this.nombre = nombre;
         }
 
-        public String getDireccion() {
-            return direccion;
+        public String getDireccionXml() {
+            return direccionXml;
         }
 
-        public void setDireccion(String direccion) {
-            this.direccion = direccion;
+        public void setDireccionXml(String direccionXml) {
+            this.direccionXml = direccionXml;
+        }
+
+        public String getDireccionJar() {
+            return direccionJar;
+        }
+
+        public void setDireccionJar(String direccionJar) {
+            this.direccionJar = direccionJar;
         }
 
         public Ruta() {
             this.nombre = "";
-            this.direccion = "";
+            this.direccionXml = "";
+            this.direccionJar = "";
         }
 
         @Override
         public String toString() {
-            return "Ruta{" + "nombre=" + nombre + ", direccion=" + direccion + '}';
+            return "Ruta{" + "nombre=" + nombre + ", direccionXml=" + direccionXml + ", direccionJar=" + direccionJar + '}';
         }
 
     }

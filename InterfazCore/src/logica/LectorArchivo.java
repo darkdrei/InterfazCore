@@ -159,21 +159,28 @@ public class LectorArchivo extends JPanel implements ActionListener {
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.NONE;
         this.add(aceptar, constraints);
+        this.changeButtonStatus(false);
+    }
+
+    private void changeButtonStatus(boolean enabled) {
+        this.aceptar.setEnabled(enabled);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String path_base = "";
+        String path_base_extract = "";
         if (os.getOS().equals("win")) {
-            path_base = "src\\configuracion";
+            path_base_extract = "src\\configuracion\\jars";
         } else {
-            path_base = "src/configuracion";
+            path_base_extract = "src/configuracion/jars";
         }
         if (e.getSource() == aceptar) {
             area.setText("precionar aceptar");
+            this.changeButtonStatus(false);
+
             if (xml != null) {
                 WriteComponenXml write_xml = new WriteComponenXml();
-                ZipUtils.extract(file_zip, new File(path_base));
+                ZipUtils.extract(file_zip, new File(path_base_extract));
                 write_xml.writeFile("src/configuracion/xml_configuracion.xml", xml);
             } else {
                 JOptionPane.showMessageDialog(this, "Debe cargar un modulo.", "Cargar Modulo", JOptionPane.INFORMATION_MESSAGE);
@@ -182,6 +189,7 @@ public class LectorArchivo extends JPanel implements ActionListener {
             area.setText("precionar cancelar");
         } else if (e.getSource() == cargar) {
             area.setText("precionar Cargar");
+            this.changeButtonStatus(true);
             JFileChooser f = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("zip & ZIP", "zip");
             f.setFileFilter(filter);
@@ -196,13 +204,12 @@ public class LectorArchivo extends JPanel implements ActionListener {
                     file_zip = f.getSelectedFile();
                     File[] files = z.getFiles(f.getSelectedFile());
                     System.out.println("Cantidad de archios --> " + files.length);
-                    int i = 0, index_xml = -1, index_jar = 0;
+                    int i = 0, index_xml = -1, index_jar = -1;
                     stop:
                     for (i = 0; i < files.length; i++) {
                         System.out.println("Nombre del archivo " + files[i].getName());
                         if (files[i].getName().contains("xml")) {
                             index_xml = i;
-                            ;
                         } else if (files[i].getName().contains("jar")) {
                             index_jar = i;
                         }
@@ -213,6 +220,7 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             area.setText(read_xml.toString());
                             xml = read_xml.getXml();
                             ListComponenXml list = new ListComponenXml();
+                            String path_base;
                             if (os.getOS().equals("win")) {
                                 path_base = "src\\configuracion\\xml_configuracion.xml";
                             } else {
@@ -221,7 +229,10 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             list.loadingFile(path_base);
                             list.readNodeFile();
                             xml.getRuta().setNombre(files[index_xml].getName());
-                            xml.getRuta().setDireccion(path_base + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
+                            System.out.println("Index xml " + index_xml);
+                            System.out.println("Index jar " + index_jar);
+                            xml.getRuta().setDireccionXml(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_xml].getName());
+                            xml.getRuta().setDireccionJar(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
                             System.out.println("----> " + xml.getRuta().toString());
                             break stop;
                         }

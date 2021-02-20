@@ -60,6 +60,7 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
     private void listaDeComponentes() {
         columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión", ""};
         TablaComponentes.setDefaultRenderer(Object.class, new Render());
+        list.readNodeFile();
         JButton btn_eliminar = new JButton("Eliminar");
         if (this.exisFile & this.validExtencion) {
             //WriteComponenXml componen = new WriteComponenXml();
