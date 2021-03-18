@@ -29,11 +29,12 @@
       <version>4.1</version>
     </autor>
     <cuerpo>
-      <tipo columnas="2" tipodatocolumna="AB, BD" />
+      <tipo columnas="2" tipodatocolumna="AB, BD, CD" />
       <claseprincipal>test1</claseprincipal>
       <parametro>
         <float nombre="AB" />
         <int nombre="BD" />
+        <int nombre="CD" />
       </parametro>
     </cuerpo>
     <ruta>
@@ -41,7 +42,7 @@
       <direccionXml />
       <direccionJar />
     </ruta>
-    <status active="false" />
+    <status active="true" />
   </pluguin>
   <pluguin>
     <autor>
@@ -50,18 +51,17 @@
       <version>0.0.1</version>
     </autor>
     <cuerpo>
-      <tipo columnas="1" tipodatocolumna="Test1">
-        <claseprincipal>ModuloFuncional2</claseprincipal>
-      </tipo>
+      <tipo columnas="1" tipodatocolumna="Test1" />
+      <claseprincipal />
       <parametro>
         <String nombre="args" />
       </parametro>
     </cuerpo>
-    <status active="true" />
     <ruta>
       <nombre>config.xml</nombre>
       <direccionXml>src\configuracion\jars\config.xml</direccionXml>
       <direccionJar>src\configuracion\jars\ModuloFuncional2.jar</direccionJar>
     </ruta>
+    <status active="true" />
   </pluguin>
 </listado>

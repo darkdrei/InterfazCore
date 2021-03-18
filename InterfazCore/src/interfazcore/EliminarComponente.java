@@ -5,10 +5,10 @@
  */
 package interfazcore;
 
+import core.Core;
 import logica.LectorXml;
 import logica.ListComponenXml;
 import logica.ValidXml;
-import logica.WriteComponenXml;
 import logica.Xml;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,6 @@ import javax.swing.JDialog;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -38,19 +37,19 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
     ValidXml vxml = new ValidXml();
     OSValidator os;
     private ListComponenXml list;
+    private Core parent;
     private boolean exisFile;
     private boolean validExtencion;
-    private String warningMsgM;
 
     /**
      * Creates new form NewJDialog
      */
-    public EliminarComponente(java.awt.Frame parent, ListComponenXml list, boolean exisFile, boolean validExtencion, String warningMsg, boolean modal) {
+    public EliminarComponente(Core parent, ListComponenXml list, boolean exisFile, boolean validExtencion, boolean modal) {
         super(parent, modal);
+        this.parent = parent;
         this.list = list;
         this.exisFile = exisFile;
         this.validExtencion = validExtencion;
-        this.warningMsgM = warningMsg;
         initComponents();
         setLocationRelativeTo(parent);
         listaDeComponentes();
@@ -60,7 +59,6 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
     private void listaDeComponentes() {
         columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión", ""};
         TablaComponentes.setDefaultRenderer(Object.class, new Render());
-        list.readNodeFile();
         JButton btn_eliminar = new JButton("Eliminar");
         if (this.exisFile & this.validExtencion) {
             //WriteComponenXml componen = new WriteComponenXml();
@@ -233,10 +231,11 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
                         opciones, //the titles of buttons
                         opciones[0]); //default button title
                 if (JOptionPane.OK_OPTION != op_eliminar) {
-                    list.removeXml(list.getXmls().get(selectedRow));
+                    Xml x = list.getXmls().get(selectedRow);
+                    this.parent.deleteDockable(x);
+                    list.removeXml(x);
                     TextInformacion.setText("");
                     listaDeComponentes();
-                    JOptionPane.showMessageDialog(TablaComponentes, this.warningMsgM);
                 } else {
                     System.out.println("cancelado");
                 }

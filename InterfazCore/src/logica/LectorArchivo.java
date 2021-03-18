@@ -38,10 +38,12 @@ public class LectorArchivo extends JPanel implements ActionListener {
     private Xml xml;
     private File file_zip;
     private Core core;
+    private ListComponenXml list;
     OSValidator os;
 
-    public LectorArchivo(Core core) {
+    public LectorArchivo(Core core, ListComponenXml list) {
         this.core = core;
+        this.list = list;
         this.setLayout(new GridBagLayout());
         JLabel titulo = new JLabel() {
             @Override
@@ -234,6 +236,9 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             xml.getRuta().setDireccionXml(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_xml].getName());
                             xml.getRuta().setDireccionJar(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
                             System.out.println("----> " + xml.getRuta().toString());
+                            this.list.getXmls().add(xml);
+                            this.core.addNewDockable(xml);
+                            this.core.deploy();
                             break stop;
                         }
                     }

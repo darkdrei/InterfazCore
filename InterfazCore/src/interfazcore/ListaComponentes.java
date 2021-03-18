@@ -5,6 +5,7 @@
  */
 package interfazcore;
 
+import core.Core;
 import logica.ListComponenXml;
 import logica.Xml;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,7 @@ import javax.swing.table.TableModel;
 public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener {
 
     private ListComponenXml list;
+    private Core parent;
     private boolean exisFile;
     private boolean validExtencion;
     private String warningMsg;
@@ -32,21 +34,23 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     /**
      * Creates new form NewJDialog
      */
-    public ListaComponentes(java.awt.Frame parent, ListComponenXml list, boolean exisFile, boolean validExtencion, String warningMsg, boolean modal) {
+    public ListaComponentes(Core parent, ListComponenXml list, boolean exisFile, boolean validExtencion, String warningMsg, boolean modal) {
         super(parent, modal);
         this.list = list;
+        this.parent = parent;
         this.exisFile = exisFile;
         this.warningMsg = warningMsg;
         this.validExtencion = validExtencion;
         initComponents();
         setLocationRelativeTo(parent);
         listaDeComponentes();
+
         TextInformacion.setEditable(false);
     }
 
     private void listaDeComponentes() {
         columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión"};
-        list.readNodeFile();
+        // list.readNodeFile();
         if (this.exisFile & this.validExtencion) {
             data = new Object[list.getXmls().size()][4];
 
@@ -62,6 +66,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             d.setTitle("El archivo de configuracion ha sido alterado");
             d.setVisible(true);
         }
+
         TablaComponentes.setModel(new DefaultTableModel(data, columNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -90,9 +95,15 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         Object response = model.getValueAt(row, column);
         Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
+        if (x.getStatus().getActive()) {
+            this.parent.addNewDockable(x);
+            this.parent.deploy();
+        } else {
+            this.parent.deleteDockable(x);
+        }
         list.updateFile(row, x);
         JOptionPane.showMessageDialog(TablaComponentes, "El componente " + list.getXmls().get(row).getAutor().getNombre() + " fue " + getEstadoName(list.getXmls().get(row).getStatus().getActive()) + "\n" + this.warningMsg);
-//        ...// Do something with the data...
+        // Do something with the data...
         this.listaDeComponentes();
     }
 

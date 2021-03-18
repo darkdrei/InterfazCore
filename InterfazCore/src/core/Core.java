@@ -16,6 +16,7 @@ import bibliothek.gui.DockController;
 import bibliothek.gui.dock.common.CControl;
 import bibliothek.gui.dock.common.CGrid;
 import bibliothek.gui.dock.common.DefaultSingleCDockable;
+import bibliothek.gui.dock.common.SingleCDockable;
 import bibliothek.gui.dock.common.action.CAction;
 import bibliothek.gui.dock.common.intern.CDockable;
 import java.awt.BorderLayout;
@@ -97,7 +98,7 @@ public class Core
     public Core()
             throws InstantiationException, IllegalAccessException {
         setTitle("Interfaz - Integradora");
-        String warningMsg = "Debe reiniciar la aplicación para que estos cambios tengan efectos.";
+        String warningMsg = "";
 
         this.control = new CControl(this);
         this.control.setTheme("eclipse");
@@ -135,7 +136,7 @@ public class Core
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog eliminar = new EliminarComponente(Core.this, list, exisFile, validExtencion, warningMsg, true);
+                JDialog eliminar = new EliminarComponente(Core.this, list, exisFile, validExtencion, true);
                 eliminar.setVisible(true);
             }
 
@@ -183,7 +184,7 @@ public class Core
          * **********************************************************************
          */
         /*                  CODIGFO DE CARGADO DE ARCHIVO                        */
-        lector_archivo = new LectorArchivo(this);
+        lector_archivo = new LectorArchivo(this, list);
         this.lectorSeleccionDockable = new DefaultSingleCDockable("selection", "Agregar componente");
         this.lectorSeleccionDockable.setLayout(new BorderLayout());
         this.lectorSeleccionDockable.add(lector_archivo, BorderLayout.CENTER);
@@ -252,28 +253,44 @@ public class Core
         }
 
         if (exisFile & validExtencion) {
-            /*   Ejecutador de codigo       */
-            for (Xml x : list.getXmls()) {
-                if (x.getStatus().getActive()) {
-                    ExecuteComponent executecomponene = new ExecuteComponent(x);
-                    DefaultSingleCDockable executecomponene_dockable = new DefaultSingleCDockable(Integer.toString(x.getId()), x.getAutor().getNombre(), new CAction[0]);
-                    executecomponene_dockable.setLayout(new BorderLayout());
-                    executecomponene_dockable.add(executecomponene, BorderLayout.CENTER);
-                    executecomponene_dockable.setCloseable(true);
-                    //this.layout.add(30, 0, 70, 100, executecomponene_dockable);
-                    this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
-
-                }
-            }
+            /* Ejecutador de codigo */
+            this.loadMultiDockable();
         }
 
         /**
          * *****************************
+         * * * CARGAR EN CODE * * *
          */
+        this.deploy();
+    }
+
+    private void loadMultiDockable() {
+        for (Xml x : list.getXmls()) {
+            this.addNewDockable(x);
+        }
+    }
+
+    public void addNewDockable(Xml x) {
+        SingleCDockable exist = control.getSingleDockable(Integer.toString(x.getId()));
+        if (x.getStatus().getActive() && exist == null) {
+            ExecuteComponent executecomponene = new ExecuteComponent(x);
+            DefaultSingleCDockable executecomponene_dockable = new DefaultSingleCDockable(Integer.toString(x.getId()), x.getAutor().getNombre(), new CAction[0]);
+            executecomponene_dockable.setLayout(new BorderLayout());
+            executecomponene_dockable.add(executecomponene, BorderLayout.CENTER);
+            executecomponene_dockable.setCloseable(true);
+            this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
+        } else if (exist != null) {
+            exist.setVisible(true);
+        }
+    }
+
+    public void deleteDockable(Xml x) {
+        SingleCDockable single = (DefaultSingleCDockable) control.getSingleDockable(Integer.toString(x.getId()));
+        single.setVisible(false);
+    }
+
+    public void deploy() {
         control.getContentArea().deploy(this.layout);
-        /**
-         * * CARGAR EN CODE **
-         */
     }
 
     public JTree getTree() {
