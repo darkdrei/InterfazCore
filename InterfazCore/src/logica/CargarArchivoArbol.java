@@ -96,7 +96,6 @@ public class CargarArchivoArbol extends CButton {
             //System.out.println(fc.getSelectedFile().getAbsolutePath());
             File dir = new File(fc.getSelectedFile().getAbsolutePath());
             String archivos[] = dir.list();
-            System.err.println("Se exploto la vaina ---->>>> " +archivos.length);
             leerDirectorio(archivos, fc.getSelectedFile().getAbsolutePath(),carpetaRaiz,0);
         }
         this.getBase().getTree().setModel(modelo);
@@ -119,7 +118,6 @@ public class CargarArchivoArbol extends CButton {
     }
 
     public void leerDirectorio(String[] r, String path,DefaultMutableTreeNode padre,int i) {
-        System.out.println("Componente es -> "+ r);
         if(r == null){
             return;
         }
@@ -131,7 +129,6 @@ public class CargarArchivoArbol extends CButton {
                 modelo.insertNodeInto(carpeta, padre, i++);
             } else {
                 String ruta = path + "/" + f;
-                //System.out.println(ruta);
                 File dir = new File(ruta);
                 String archivos[] = dir.list();
                 DefaultMutableTreeNode carpeta = new DefaultMutableTreeNode(f);

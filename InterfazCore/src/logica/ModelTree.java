@@ -200,7 +200,6 @@ public class ModelTree implements TreeModel{
 		public String getCode() throws IOException{
 			String name = clazz.getName();
 			name = "/" + name.replace('.', '/') + ".java";
-                        System.out.println(name);
 			InputStream in = clazz.getResourceAsStream( name );
 			if( in == null ){
 				File file = new File( "src" + name );

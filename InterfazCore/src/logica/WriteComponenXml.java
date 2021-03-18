@@ -39,8 +39,6 @@ public class WriteComponenXml extends ComponenXml {
         FileWriter writer = null;
         try {
             ValidXml vxml = new ValidXml();
-            //System.out.println(vxml.exisFile(ruta));
-            //System.out.println(vxml.validExtencion(ruta));
             if (vxml.exisFile(ruta) && vxml.validExtencion(ruta)) {
                 loadingFile(ruta);
                 try {
@@ -74,7 +72,6 @@ public class WriteComponenXml extends ComponenXml {
                 this.setRootNode(new Element("listado"));
             }
             Element autor = new Element("autor");
-            //System.out.println("  " + this.getDocument() + "   " + this.getRootNode());
             autor.addContent(new Element("nombre").setText(xml.getAutor().getNombre()));
             autor.addContent(new Element("descripcion").setText(xml.getAutor().getDescripcion()));
             autor.addContent(new Element("version").setText(xml.getAutor().getVersion()));

@@ -24,8 +24,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import logica.data.ZipUtils;
 
 /**
- *
- * @author dark
+ * Estructura de codigo tomada de la pagina de documentacion y modificado para el uso en la tesis 
+ * @author https://www.javatips.net/api/DockingFrames-master/docking-frames-common/src/bibliothek/gui/dock/common/DefaultSingleCDockable.java
  */
 public class LectorArchivo extends JPanel implements ActionListener {
 
@@ -197,7 +197,6 @@ public class LectorArchivo extends JPanel implements ActionListener {
             f.setFileFilter(filter);
             int op = f.showOpenDialog(f);
             if (op == JFileChooser.APPROVE_OPTION) {
-                System.err.println("El archivo es aceptado");
                 Zip z = new Zip();
                 Object[] r = z.validarArchivoGrup(f.getSelectedFile());
                 if (!((boolean) r[0])) {
@@ -205,11 +204,9 @@ public class LectorArchivo extends JPanel implements ActionListener {
                 } else {
                     file_zip = f.getSelectedFile();
                     File[] files = z.getFiles(f.getSelectedFile());
-                    System.out.println("Cantidad de archios --> " + files.length);
                     int i = 0, index_xml = -1, index_jar = -1;
                     stop:
                     for (i = 0; i < files.length; i++) {
-                        System.out.println("Nombre del archivo " + files[i].getName());
                         if (files[i].getName().contains("xml")) {
                             index_xml = i;
                         } else if (files[i].getName().contains("jar")) {
@@ -231,11 +228,8 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             list.loadingFile(path_base);
                             list.readNodeFile();
                             xml.getRuta().setNombre(files[index_xml].getName());
-                            System.out.println("Index xml " + index_xml);
-                            System.out.println("Index jar " + index_jar);
                             xml.getRuta().setDireccionXml(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_xml].getName());
                             xml.getRuta().setDireccionJar(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
-                            System.out.println("----> " + xml.getRuta().toString());
                             this.list.getXmls().add(xml);
                             this.core.addNewDockable(xml);
                             this.core.deploy();

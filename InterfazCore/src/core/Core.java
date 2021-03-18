@@ -67,6 +67,7 @@ public class Core
     public OSValidator os;
     public CControl control;
     public ArrayList<CodePanel> currentCodes = new ArrayList();
+    public DefaultSingleCDockables componentes_de_arbol = new DefaultSingleCDockables(); 
 
     public static void main(String[] args)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
@@ -228,22 +229,26 @@ public class Core
         listDockable.addAction(cargador_de_archivo);
         tree.addTreeSelectionListener((TreeSelectionEvent e) -> {
             TreePath path = tree.getSelectionPath();
-            System.out.println(path.toString());
-            System.out.println(path.getPathComponent(path.getPath().length - 1).toString());
-            System.out.println("Componente es .... " + path.getPathComponent(path.getPath().length - 1).toString());
-            DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
             String name_file = path.getPathComponent(path.getPath().length - 1).toString();
-            CodePanel temporal_codepanel = new CodePanel();
-            DefaultSingleCDockable currentCodeDockable_ = new DefaultSingleCDockable(name_file, name_file, new CAction[0]);
-            currentCodeDockable_.setLayout(new BorderLayout());
-            currentCodeDockable_.add(temporal_codepanel.toComponent(), "Center");
-            currentCodeDockable_.setCloseable(false);
-            if (!control.getController().isRestrictedEnvironment()) {
-                currentCodeDockable_.addAction(new CopyCodeAction(temporal_codepanel));
+            if(!componentes_de_arbol.existCeldaDefaultSingleCDockable(name_file)){
+                DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
+                CodePanel temporal_codepanel = new CodePanel();
+                DefaultSingleCDockable currentCodeDockable_ = new DefaultSingleCDockable(name_file, name_file, new CAction[0]);
+                currentCodeDockable_.setLayout(new BorderLayout());
+                currentCodeDockable_.add(temporal_codepanel.toComponent(), "Center");
+                currentCodeDockable_.setCloseable(false);
+                if (!control.getController().isRestrictedEnvironment()){
+                    currentCodeDockable_.addAction(new CopyCodeAction(temporal_codepanel));
+                }
+                this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable_});
+                temporal_codepanel.setCode(cargador_de_archivo.producirContenido(desc));
+                componentes_de_arbol.add(new CeldaDefaultSingleCDockable(name_file, currentCodeDockable_));
+                control.getContentArea().deploy(this.layout);
+            }else{
+                CeldaDefaultSingleCDockable celda_componen_arbol = componentes_de_arbol.getCeldaDefaultSingleCDockable(name_file);
+                this.layout.select(30.0D, 0.0D, 70.0D, 100.0D, celda_componen_arbol.getDefault_single_dockable());
+                control.getContentArea().deploy(this.layout);
             }
-            this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable_});
-            temporal_codepanel.setCode(cargador_de_archivo.producirContenido(desc));
-            control.getContentArea().deploy(this.layout);
         });
         this.layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
         if (os.getOS().equals("win")) {
@@ -318,6 +323,62 @@ public class Core
                 e.printStackTrace();
                 this.currentCode.setCode("");
             }
+        }
+    }
+    
+    public class  CeldaDefaultSingleCDockable{
+        private String uuid;
+        private DefaultSingleCDockable default_single_dockable;
+
+        public CeldaDefaultSingleCDockable(String uuid, DefaultSingleCDockable default_single_dockable) {
+            this.uuid = uuid;
+            this.default_single_dockable = default_single_dockable;
+        }
+
+        public String getUuid() {
+            return uuid;
+        }
+
+        public void setUuid(String uuid) {
+            this.uuid = uuid;
+        }
+
+        public DefaultSingleCDockable getDefault_single_dockable() {
+            return default_single_dockable;
+        }
+
+        public void setDefault_single_dockable(DefaultSingleCDockable default_single_dockable) {
+            this.default_single_dockable = default_single_dockable;
+        }
+    }
+    
+    public class DefaultSingleCDockables{
+        private ArrayList<CeldaDefaultSingleCDockable> default_single_cdockables;
+
+        public DefaultSingleCDockables() {
+            default_single_cdockables = new ArrayList<>();
+        }
+        
+        public boolean existCeldaDefaultSingleCDockable(String name){
+            for(CeldaDefaultSingleCDockable obj:this.default_single_cdockables){
+                if(obj.getUuid().equals(name)){
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        public void add(CeldaDefaultSingleCDockable row){
+            this.default_single_cdockables.add(row);
+        }
+        
+        public CeldaDefaultSingleCDockable getCeldaDefaultSingleCDockable(String name){
+            for(CeldaDefaultSingleCDockable obj:this.default_single_cdockables){
+                if(obj.getUuid().equals(name)){
+                    return obj;
+                }
+            }
+            return null;
         }
     }
 }

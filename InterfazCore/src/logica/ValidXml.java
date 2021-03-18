@@ -95,7 +95,6 @@ public class ValidXml implements Validacion {
                                 Parametro p = xml.new Parametro(e.getName(), e.getAttribute("nombre").getValue());
                                 parametros.add(p);
                             } catch (NullPointerException r) {
-                                System.err.println("Se exploto");
                             }
                         }
                     } catch (NullPointerException r) {

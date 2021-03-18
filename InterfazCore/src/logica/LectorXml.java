@@ -75,7 +75,6 @@ public class LectorXml extends ComponenXml {
                                 Xml.Parametro p = this.getXml().new Parametro(e.getName(), e.getAttribute("nombre").getValue());
                                 parametros.add(p);
                             } catch (NullPointerException r) {
-                                System.err.println("Se exploto");
                             }
                         }
                     } catch (NullPointerException r) {
