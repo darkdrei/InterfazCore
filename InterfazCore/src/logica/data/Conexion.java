@@ -32,21 +32,9 @@ public class Conexion {
     public void abrirConexion(){
         try {
             Class.forName("org.sqlite.JDBC"); //driver a utilizar
-            //String ruta = "/home/dreicon88/Dropbox/Restaurante/Restaurante-V2-2/origami.db"; //especificamos la ruta de la base
-            //String ruta = "/home/dark/Dropbox/Restaurante/V2/Origami2/src/logica/db/origami.db";
-            //String ruta = "H:\\windows 10\\Origami2\\src\\logica\\db\\origami.db"; //especificamos la ruta de la base
-            //String ruta ="G:\\windows 10\\Origami2\\src\\logica\\\\db\\\\origami.db";
-            //String ruta ="G:\\windows 10\\Origami2\\src\\logica\\db\\origami.db";
-            //String ruta="C:\\Users\\CTesting\\Pictures\\Origami2\\src\\logica\\db\\origami.db";
-            //String ruta ="/home/carotech/Descargas/Origami2(Backup f)/src/logica/db/origami.db";
-            //String ruta ="C:\\Users\\dreicon\\Desktop\\Restaurante\\V2\\Origami2(Backup f)\\src\\logica\\db\\origami.db";
-            //String ruta ="C:\\Users\\hp 4204LA\\Desktop\\origami\\origami.db";
-            //String ruta ="C:\\Users\\Carotech\\Desktop\\Origami2(Backup II-11)\\Origami2(Backup f)\\src\\logica\\db\\origami.db";
-           //ruta ="/home/dark/Dropbox/Restaurante/origam.db";}
+
             File base = new File(ruta); //la declaramos como un archivo
-            System.err.println("*************************  "+base.exists());
             if (base.exists()) {       //si la base existe
-                System.err.println("jdbc:sqlite:" + ruta);
                 conex = DriverManager.getConnection("jdbc:sqlite:" + ruta); //conexion con la base
                 stat = conex.createStatement();              
                 BANDERA = true;

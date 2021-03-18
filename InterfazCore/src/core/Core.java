@@ -241,13 +241,11 @@ public class Core
                 }
                 this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable_});
                 temporal_codepanel.setCode(cargador_de_archivo.producirContenido(desc));
-                control.getContentArea().deploy(this.layout);
                 componentes_de_arbol.add(new CeldaDefaultSingleCDockable(name_file, currentCodeDockable_));
+                control.getContentArea().deploy(this.layout);
             }else{
                 CeldaDefaultSingleCDockable celda_componen_arbol = componentes_de_arbol.getCeldaDefaultSingleCDockable(name_file);
-                control.layouts();
-                System.out.println("---------------> "+ control.layouts().length);
-                celda_componen_arbol.getDefault_single_dockable().setVisible(true);
+                this.layout.select(30.0D, 0.0D, 70.0D, 100.0D, celda_componen_arbol.getDefault_single_dockable());
                 control.getContentArea().deploy(this.layout);
             }
         });

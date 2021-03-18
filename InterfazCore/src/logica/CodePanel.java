@@ -26,6 +26,11 @@ import javax.swing.text.StyledEditorKit;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 
+/**
+ * Estructura de codigo tomada de la pagina de documentacion y modificado para el uso en la tesis 
+ * @author https://www.javatips.net/api/DockingFrames-master/docking-frames-common/src/bibliothek/gui/dock/common/DefaultSingleCDockable.java
+ */
+
 public class CodePanel {
 	private JTextPane textPane;
 	private String code;
@@ -91,7 +96,6 @@ public class CodePanel {
 	}
 	
 	public void setCode( String code ){
-            System.err.println(code);
 		this.code = code;
 		try{
 			DefaultStyledDocument document = new DefaultStyledDocument();

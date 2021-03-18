@@ -136,7 +136,8 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
                 } else {
                     JOptionPane.showMessageDialog(this, response.getMensage(), "Ejecutar componente", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (IOException ex) {
+
+            } catch (Exception ex) {
                 Logger.getLogger(ExecuteComponent.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -166,17 +167,6 @@ public class ExecuteComponent extends javax.swing.JPanel implements TableModelLi
         }
         panelParametros.updateUI();
 
-//        jpComponenteParametro parametro = new jpComponenteParametro(0, SettingDataType.STRING, "Descripcion");
-//        panelParametros.add(parametro);
-//        jpComponenteParametro parametro1 = new jpComponenteParametro(1, SettingDataType.INTEGER, "Numero");
-//        panelParametros.add(parametro1);
-//        jpComponenteParametro parametro2 = new jpComponenteParametro(2, SettingDataType.FLOAT, "Real");
-//        panelParametros.add(parametro2);
-//        panelParametros.updateUI();
-//        System.out.println("*----------------------------------> " + this.getParametros());
-//        this.getParametros().add(parametro);
-//        this.getParametros().add(parametro1);
-//        this.getParametros().add(parametro2);
     }
 
     public String getDataType(String type) {

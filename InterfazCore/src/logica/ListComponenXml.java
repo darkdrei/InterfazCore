@@ -43,7 +43,6 @@ public class ListComponenXml extends ComponenXml {
                 Element tem = (Element) object;
                 this.setXml(new Xml());
                 for (Element ob : tem.getChildren()) {
-                    //System.out.println(ob.getName());
                     if (ob.getName().equalsIgnoreCase("autor")) {
                         try {
                             this.getXml().getAutor().setNombre(ob.getChild("nombre").getText());
@@ -85,16 +84,14 @@ public class ListComponenXml extends ComponenXml {
                         }
                         ArrayList<Parametro> parametros = new ArrayList<>();
                         try {
-                            //System.out.println("***************  " + ob.getChild("parametro"));
                             Element param = ob.getChild("parametro");
                             for (Element e : param.getChildren()) {
-                                //System.out.println(e.getName());
                                 try {
                                     //System.out.println(e.getName());
                                     Parametro p = this.getXml().new Parametro(e.getName(), e.getAttribute("nombre").getValue());
                                     parametros.add(p);
                                 } catch (NullPointerException r) {
-                                    System.err.println("Se exploto");
+                                    
                                 }
                             }
                         } catch (NullPointerException r) {
@@ -108,7 +105,6 @@ public class ListComponenXml extends ComponenXml {
                             this.getXml().getRuta().setDireccionXml(ob.getChild("direccionXml").getText());
                             this.getXml().getRuta().setDireccionJar(ob.getChild("direccionJar").getText());
                         } catch (Exception e) {
-                            System.err.println("Error leyendo la ruta ---" + e);
                         }
                     }
                 }
@@ -132,7 +128,6 @@ public class ListComponenXml extends ComponenXml {
                 Element tem = (Element) object;
                 this.setXml(new Xml());
                 for (Element ob : tem.getChildren()) {
-                    // System.out.println(ob.getName());
                     if (ob.getName().equalsIgnoreCase("autor")) {
                         try {
                             this.getXml().getAutor().setNombre(ob.getChild("nombre").getText());
@@ -170,21 +165,17 @@ public class ListComponenXml extends ComponenXml {
                         try {
                             this.getXml().getCuerpo().setMain(ob.getChild("claseprincipal").getText());
                         } catch (NullPointerException r) {
-                            System.err.println("Calse principal ----" + r);
                             this.getXml().getCuerpo().setMain("");
                         }
                         ArrayList<Parametro> parametros = new ArrayList<>();
                         try {
-                            //System.out.println("***************  " + ob.getChild("parametro"));
                             Element param = ob.getChild("parametro");
                             for (Element e : param.getChildren()) {
                                 //System.out.println(e.getName());
                                 try {
                                     Parametro p = xml.new Parametro(e.getName(), e.getAttribute("nombre").getValue());
-                                    // System.out.println(e.getName());
                                     parametros.add(p);
                                 } catch (NullPointerException r) {
-                                    System.err.println("Se exploto");
                                 }
                             }
                         } catch (NullPointerException r) {

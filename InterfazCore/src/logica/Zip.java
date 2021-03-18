@@ -130,7 +130,6 @@ public class Zip implements Lector {
             path = "/home/dark/proyectos/aaaaa";
         }
         File folder = new File(path);
-        System.out.println("Esto es lo q hay ---> " + folder.exists());
         if (!folder.exists()) {
             folder.mkdirs();
         }
@@ -163,15 +162,12 @@ public class Zip implements Lector {
 
     @Override
     public void getsFiles(File f) {
-        System.out.println("este es el archivo " + f);
         ZipFile file = null;
         try {
             file = new ZipFile(f);
             Enumeration<? extends ZipEntry> entries = file.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                System.err.println(entry);
-                System.out.println("Esta es el tipo de archivo : " + (entry.getName().split("\\.")[1]) + " " + ((entry.getName().split("\\.")[1]).equals("jar")));
                 files.add(new Contenido(entry, file.getInputStream(entry), (entry.getName().split("\\.")[1]).equals("jar") ? 2 : 1));
             }
         } catch (IOException ex) {
@@ -201,7 +197,6 @@ public class Zip implements Lector {
             String res = "";
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                System.out.println(">>>===>> " + entry.toString().split("\\.")[1].equals("jar") + "   " + (entry.toString().split("\\.")[1].equals("xml") || entry.toString().split("\\.")[1] == "jar"));
                 c += entry.getName().split("\\.")[1].equals("xml") || entry.getName().split("\\.")[1].equals("jar") ? 1 : 0;
                 res += "\n" + entry.getName().split("\\.")[1];
             }
