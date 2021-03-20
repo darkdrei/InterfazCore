@@ -67,7 +67,7 @@ public class Core
     public OSValidator os;
     public CControl control;
     public ArrayList<CodePanel> currentCodes = new ArrayList();
-    public DefaultSingleCDockables componentes_de_arbol = new DefaultSingleCDockables(); 
+    public DefaultSingleCDockables componentes_de_arbol = new DefaultSingleCDockables();
 
     public static void main(String[] args)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
@@ -230,24 +230,24 @@ public class Core
         tree.addTreeSelectionListener((TreeSelectionEvent e) -> {
             TreePath path = tree.getSelectionPath();
             String name_file = path.getPathComponent(path.getPath().length - 1).toString();
-            if(!componentes_de_arbol.existCeldaDefaultSingleCDockable(name_file)){
+            if (!componentes_de_arbol.existCeldaDefaultSingleCDockable(name_file)) {
                 DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
                 CodePanel temporal_codepanel = new CodePanel();
                 DefaultSingleCDockable currentCodeDockable_ = new DefaultSingleCDockable(name_file, name_file, new CAction[0]);
                 currentCodeDockable_.setLayout(new BorderLayout());
                 currentCodeDockable_.add(temporal_codepanel.toComponent(), "Center");
                 currentCodeDockable_.setCloseable(false);
-                if (!control.getController().isRestrictedEnvironment()){
+                if (!control.getController().isRestrictedEnvironment()) {
                     currentCodeDockable_.addAction(new CopyCodeAction(temporal_codepanel));
                 }
                 this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable_});
                 temporal_codepanel.setCode(cargador_de_archivo.producirContenido(desc));
                 componentes_de_arbol.add(new CeldaDefaultSingleCDockable(name_file, currentCodeDockable_));
                 control.getContentArea().deploy(this.layout);
-            }else{
+            } else {
                 CeldaDefaultSingleCDockable celda_componen_arbol = componentes_de_arbol.getCeldaDefaultSingleCDockable(name_file);
-                this.layout.select(30.0D, 0.0D, 70.0D, 100.0D, celda_componen_arbol.getDefault_single_dockable());
-                control.getContentArea().deploy(this.layout);
+                celda_componen_arbol.getDefault_single_dockable().setVisible(true);
+                celda_componen_arbol.getDefault_single_dockable().toFront();
             }
         });
         this.layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
@@ -271,12 +271,12 @@ public class Core
 
     private void loadMultiDockable() {
         for (Xml x : list.getXmls()) {
-            this.addNewDockable(x);
+            this.addNewDockable(x, false);
         }
     }
 
-    public void addNewDockable(Xml x) {
-        SingleCDockable exist = control.getSingleDockable(Integer.toString(x.getId()));
+    public void addNewDockable(Xml x, Boolean isVisible) {
+        DefaultSingleCDockable exist = (DefaultSingleCDockable) control.getSingleDockable(Integer.toString(x.getId()));
         if (x.getStatus().getActive() && exist == null) {
             ExecuteComponent executecomponene = new ExecuteComponent(x);
             DefaultSingleCDockable executecomponene_dockable = new DefaultSingleCDockable(Integer.toString(x.getId()), x.getAutor().getNombre(), new CAction[0]);
@@ -284,14 +284,26 @@ public class Core
             executecomponene_dockable.add(executecomponene, BorderLayout.CENTER);
             executecomponene_dockable.setCloseable(true);
             this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{executecomponene_dockable});
-        } else if (exist != null) {
+            if (isVisible) {
+                executecomponene_dockable.setVisible(true);
+            }
+        } else {
             exist.setVisible(true);
         }
     }
 
     public void deleteDockable(Xml x) {
         SingleCDockable single = (DefaultSingleCDockable) control.getSingleDockable(Integer.toString(x.getId()));
-        single.setVisible(false);
+        if (single != null) {
+            single.setVisible(false);
+        }
+    }
+
+    public void showDockable(Xml x) {
+        SingleCDockable single = (DefaultSingleCDockable) control.getSingleDockable(Integer.toString(x.getId()));
+        if (single != null) {
+            single.setVisible(true);
+        }
     }
 
     public void deploy() {
@@ -303,9 +315,8 @@ public class Core
     }
 
     public void lectorVisible() {
-        // this.lectorSeleccionDockable.setVisible(true);
-        layout.select(30, 0, 70, 100, lectorSeleccionDockable);
-        control.getContentArea().deploy(layout);
+        this.lectorSeleccionDockable.setVisible(true);
+        lectorSeleccionDockable.toFront();
     }
 
     public void setTree(JTree tree) {
@@ -325,8 +336,9 @@ public class Core
             }
         }
     }
-    
-    public class  CeldaDefaultSingleCDockable{
+
+    public class CeldaDefaultSingleCDockable {
+
         private String uuid;
         private DefaultSingleCDockable default_single_dockable;
 
@@ -351,30 +363,31 @@ public class Core
             this.default_single_dockable = default_single_dockable;
         }
     }
-    
-    public class DefaultSingleCDockables{
+
+    public class DefaultSingleCDockables {
+
         private ArrayList<CeldaDefaultSingleCDockable> default_single_cdockables;
 
         public DefaultSingleCDockables() {
             default_single_cdockables = new ArrayList<>();
         }
-        
-        public boolean existCeldaDefaultSingleCDockable(String name){
-            for(CeldaDefaultSingleCDockable obj:this.default_single_cdockables){
-                if(obj.getUuid().equals(name)){
+
+        public boolean existCeldaDefaultSingleCDockable(String name) {
+            for (CeldaDefaultSingleCDockable obj : this.default_single_cdockables) {
+                if (obj.getUuid().equals(name)) {
                     return true;
                 }
             }
             return false;
         }
-        
-        public void add(CeldaDefaultSingleCDockable row){
+
+        public void add(CeldaDefaultSingleCDockable row) {
             this.default_single_cdockables.add(row);
         }
-        
-        public CeldaDefaultSingleCDockable getCeldaDefaultSingleCDockable(String name){
-            for(CeldaDefaultSingleCDockable obj:this.default_single_cdockables){
-                if(obj.getUuid().equals(name)){
+
+        public CeldaDefaultSingleCDockable getCeldaDefaultSingleCDockable(String name) {
+            for (CeldaDefaultSingleCDockable obj : this.default_single_cdockables) {
+                if (obj.getUuid().equals(name)) {
                     return obj;
                 }
             }

@@ -96,8 +96,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
         if (x.getStatus().getActive()) {
-            this.parent.addNewDockable(x);
-            this.parent.deploy();
+            this.parent.addNewDockable(x, true);
         } else {
             this.parent.deleteDockable(x);
         }
@@ -226,7 +225,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
                 + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
                 + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
         TextInformacion.setText(t);
-
+        this.parent.showDockable(list.getXmls().get(selectedRow));
     }//GEN-LAST:event_TablaComponentesMouseClicked
 
     /**

@@ -24,8 +24,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import logica.data.ZipUtils;
 
 /**
- * Estructura de codigo tomada de la pagina de documentacion y modificado para el uso en la tesis 
- * @author https://www.javatips.net/api/DockingFrames-master/docking-frames-common/src/bibliothek/gui/dock/common/DefaultSingleCDockable.java
+ * Estructura de codigo tomada de la pagina de documentacion y modificado para
+ * el uso en la tesis
+ *
+ * @author
+ * https://www.javatips.net/api/DockingFrames-master/docking-frames-common/src/bibliothek/gui/dock/common/DefaultSingleCDockable.java
  */
 public class LectorArchivo extends JPanel implements ActionListener {
 
@@ -231,8 +234,8 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             xml.getRuta().setDireccionXml(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_xml].getName());
                             xml.getRuta().setDireccionJar(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
                             this.list.getXmls().add(xml);
-                            this.core.addNewDockable(xml);
-                            this.core.deploy();
+                            this.core.addNewDockable(xml, true);
+                            // this.core.setDockableVisible(Integer.toString(xml.getId()));
                             break stop;
                         }
                     }
