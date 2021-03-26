@@ -147,7 +147,7 @@ public class Core
 
         JMenu help = new JMenu("Ayuda");
         menubar.add(help);
-        JMenuItem acercade = new JMenuItem("Acerca de");
+        JMenuItem acercade = new JMenuItem("Acerca de.");
         help.add(acercade);
 
         acercade.addActionListener(new ActionListener() {
@@ -156,7 +156,7 @@ public class Core
             public void actionPerformed(ActionEvent e) {
                 String nombre = "ENTORNO DE INGENIERÍA INVERSA PARA LA INTEGRACIÓN DE FUNCIONALIDADES BASADO EN UNA ARQUITECTURA ORIENTADA A COMPONENTES.";
                 String integrantes = "Eugenio Pájaro Almagro" + "\n" + "Mario Barrios Pacheco";
-                JOptionPane.showMessageDialog(rootPane, nombre + "\n\n" + "Integrantes:" + "\n" + integrantes, "Acerca de.", HEIGHT);
+                JOptionPane.showMessageDialog(rootPane, nombre + "\n\n" + "Integrantes:" + "\n" + integrantes, "Acerca de.", JOptionPane.INFORMATION_MESSAGE);
             }
 
         });
