@@ -133,7 +133,6 @@ public class Core
         menu.add(deleteComponentes);
 
         deleteComponentes.addActionListener(new ActionListener() {
-            private int count = 0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -151,9 +150,19 @@ public class Core
         JMenuItem acercade = new JMenuItem("Acerca de");
         help.add(acercade);
 
+        acercade.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombre = "ENTORNO DE INGENIERÍA INVERSA PARA LA INTEGRACIÓN DE FUNCIONALIDADES BASADO EN UNA ARQUITECTURA ORIENTADA A COMPONENTES.";
+                String integrantes = "Eugenio Pájaro Almagro" + "\n" + "Mario Barrios Pacheco";
+                JOptionPane.showMessageDialog(rootPane, nombre + "\n\n" + "Integrantes:" + "\n" + integrantes, "Acerca de.", HEIGHT);
+            }
+
+        });
+
         setJMenuBar(menubar);
         addComponente.addActionListener(new ActionListener() {
-            private int count = 0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,7 +175,6 @@ public class Core
         componente.add(Lista);
 
         Lista.addActionListener(new ActionListener() {
-            private int count = 0;
 
             @Override
             public void actionPerformed(ActionEvent e) {

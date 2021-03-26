@@ -187,6 +187,8 @@ public class LectorArchivo extends JPanel implements ActionListener {
                 WriteComponenXml write_xml = new WriteComponenXml();
                 ZipUtils.extract(file_zip, new File(path_base_extract));
                 write_xml.writeFile("src/configuracion/xml_configuracion.xml", xml);
+                this.list.getXmls().add(xml);
+                this.core.addNewDockable(xml, true);
             } else {
                 JOptionPane.showMessageDialog(this, "Debe cargar un modulo.", "Cargar Modulo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -233,8 +235,6 @@ public class LectorArchivo extends JPanel implements ActionListener {
                             xml.getRuta().setNombre(files[index_xml].getName());
                             xml.getRuta().setDireccionXml(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_xml].getName());
                             xml.getRuta().setDireccionJar(path_base_extract + (os.getOS().equals("win") ? "\\" : "/") + files[index_jar].getName());
-                            this.list.getXmls().add(xml);
-                            this.core.addNewDockable(xml, true);
                             // this.core.setDockableVisible(Integer.toString(xml.getId()));
                             break stop;
                         }
